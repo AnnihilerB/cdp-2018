@@ -1,0 +1,30 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  web:
+    container_name: webappcdp
+    restart : always
+    build: .
+    depends_on:
+      - db
+    ports:
+      - 3000:3000 
+
+  db:
+    container_name: mariadb
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: cdp
+    volumes:
+      - ./data:/data/db
+
+  adminer:
+    container_name: adminersql
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080

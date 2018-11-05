@@ -1,0 +1,12 @@
+{
+  "name": "cdp-2018",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "express":"4.16.4",
+    "mariadb": "2.0.0-alpha"
+  }
+}
