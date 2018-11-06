@@ -7,7 +7,7 @@ const pool = mariadb.createPool({
   database: 'cdp',
   connectionLimit: 5});
 const app = express();
-var test = "";
+var tes = "";
 app.get('/', function(req, res) {
   // res.send('Hello !');
   pool.getConnection()
