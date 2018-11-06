@@ -41,3 +41,16 @@ Pour la table issues :
 Pour la table tasks :
 
 - description
+
+## Fichier en charge de la base de données et méthodes
+
+La communication avec la base de données est gérée par le fichier *dataDAO.js*.
+La casse doit être respectée.
+Ce fichier contient les méthodes suivantes :
+
+- createUser
+- logUser
+- createIssue
+- createProject
+- createTask
+- createSprint
