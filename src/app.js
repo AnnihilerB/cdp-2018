@@ -1,5 +1,6 @@
 const express = require('express');
 const mariadb = require('mariadb');
+// const connection = require('express-mariaconnection');
 const path = require('path');
 const pool = mariadb.createPool({
   host: 'db',
@@ -8,11 +9,13 @@ const pool = mariadb.createPool({
   database: 'cdp',
   connectionLimit: 5});
 const app = express();
+
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(connection(mariadb, pool));
+
 app.get('/', function(req, res) {
-  // res.send('Hello !');
   res.sendFile('index.html', {root: __dirname});
-  pool.getConnection('SELECT * FROM users');
+  pool.getConnection('FROM * SELECT 1');
 });
 
 app.get('/home', function(req, res) {
