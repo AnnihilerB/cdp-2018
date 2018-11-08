@@ -1,5 +1,6 @@
 const express = require('express');
 const mariadb = require('mariadb');
+var path = require('path');
 const pool = mariadb.createPool({
   host: 'db',
   user: 'root',
@@ -9,6 +10,7 @@ const pool = mariadb.createPool({
 const app = express();
 app.get('/', function(req, res) {
   // res.send('Hello !');
+  app.use(express.static(path.join(__dirname, 'public')));
   res.sendFile('index.html', {root: __dirname});
   pool.getConnection('SELECT * FROM users');
 });
