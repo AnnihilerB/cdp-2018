@@ -23,5 +23,5 @@ deploy:
   file: 
     - docker-compose.yml
   on:
-    repo: AnnihilerB/travisTest
+    repo: AnnihilerB/cdp-2018
     tags: true
