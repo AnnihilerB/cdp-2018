@@ -14,33 +14,34 @@ Tout le code doit respecter la casse présente dans ce fichier.
 ## Champs
 
 Pour la table users :
-
-- name
+- id
+- username
 - password
+- email
 
 Pour la table projects :
-
+- id_project
 - name
 - description
-- repo
-- backlog
+- deposit_url
+- sprint_duration
 
 Pour la table sprints :
-
-- length
-- name
+- id_sprint
+- name_sprint
+- state_sprint
 
 Pour la table issues :
-
-- description
-- state
-- difficulty
-- priority
-- planification (quel sprint)
+- id_issue
+- description_issue
+- state_issue
+- difficulty_issue
+- priority_issue
 
 Pour la table tasks :
-
-- description
+- id_task
+- name_task
+- state_task
 
 ## Fichier en charge de la base de données et méthodes
 
