@@ -2,7 +2,8 @@ FROM node:8
 
 WORKDIR /app
 
-COPY . .
+COPY src src
+COPY package.json .
 
 RUN npm install
 
