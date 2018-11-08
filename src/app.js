@@ -8,9 +8,9 @@ const pool = mariadb.createPool({
   database: 'cdp',
   connectionLimit: 5});
 const app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
   // res.send('Hello !');
-  app.use(express.static(path.join(__dirname, 'public')));
   res.sendFile('index.html', {root: __dirname});
   pool.getConnection('SELECT * FROM users');
 });
