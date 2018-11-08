@@ -15,6 +15,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
   res.sendFile('index.html', {root: __dirname});
+  // const rows = conn.query('SELECT 1 as val');
+  // console.log(rows);
   pool.getConnection('FROM * SELECT 1');
 });
 
