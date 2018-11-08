@@ -1,0 +1,27 @@
+language: node_js
+services:
+  - docker
+branches:
+  only:
+    - release
+node_js:
+  - '8'
+install:
+  - npm install
+before_deploy:
+- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
+- git config --local user.name "Ali"
+- git config --local user.email "cherifiali@outlook.fr"
+- docker build . -t "annihilerb/cdp:$TRAVIS_TAG"
+- docker tag "annihilerb/cdp:$TRAVIS_TAG" "annihilerb/cdp:latest"
+- "docker push annihilerb/cdp:$TRAVIS_TAG"
+- "docker push annihilerb/cdp:latest"
+deploy:
+  provider: releases
+  api_key:
+    secure: AZkicq8RQ2zeIRwR9kppgNbd633/NUC56/NMwsQ3oy1AgdlczEOl5VsdWws1Sxo2TbL1flggzbm67Onn/xeePl+qEjAxPcAOr2SzMuOeDwXu2BvdxIByG6Lc03Qb1z4pM0bX5VFZCPRMW0aXJJtHSLohEAxrdWABp9fSUtBAMj1c0oqQgUlPVRCOY8NbL/OmtSxQo/+SG0IAC3k2azUTHGruavh6Q7CFVGZ8epxoCuAvpl9qQzZE9H4Zt3NOOGu2OoyfxbvnacATfV6JPGbMQecXnvM0jddh8MYO1c8Q48Boi3IJJ7SJN6OESJCER8FOveJxC7YipIiPyR7Py3LGOqAQmIqDN9jzpWT8VhOVr5QIREkP2wXv1oCHaQKmmuri3cncznXfyXTZU3ISDtMXwFq7/DiOkWJUdVw4uSujumX/An1l6z78HHyC9j3Zl9APPT4lL9PuW2luFkPs+Dt6ezPYEIlpKmdvpx3m2C1sLJqTlhLdn3uhGUvslfNVYiX0DSgTjER2T4wwxbXcb6QMTRAJB16UCqaXaZSsNfJMiLe/6sqTuRsZy/sgkkzWkJZN/1kUN0P4Dqr2Sk9l8aGrs5VDf24+3H0W3L55dsuz2US2f/3L7SeHKb6COh2vVDhjRGU9h6luq/YPaXrWJjuzLduwR/nEFDIDAbFapb3yF0E=
+  file: 
+    - docker-compose.yml
+  on:
+    repo: AnnihilerB/travisTest
+    tags: true
