@@ -1,24 +1,23 @@
 language: node_js
 services:
-  - docker
+- docker
 node_js:
-  - '8'
+- '8'
 install:
-  - npm install
+- npm install
 before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
 - git config --local user.name "Ali"
 - git config --local user.email "cherifiali@outlook.fr"
 - docker build . -t "annihilerb/cdp:$TRAVIS_TAG"
 - docker tag "annihilerb/cdp:$TRAVIS_TAG" "annihilerb/cdp:latest"
-- "docker push annihilerb/cdp:$TRAVIS_TAG"
-- "docker push annihilerb/cdp:latest"
+- docker push annihilerb/cdp:$TRAVIS_TAG
+- docker push annihilerb/cdp:latest
 deploy:
   provider: releases
   api_key:
-    secure: AZkicq8RQ2zeIRwR9kppgNbd633/NUC56/NMwsQ3oy1AgdlczEOl5VsdWws1Sxo2TbL1flggzbm67Onn/xeePl+qEjAxPcAOr2SzMuOeDwXu2BvdxIByG6Lc03Qb1z4pM0bX5VFZCPRMW0aXJJtHSLohEAxrdWABp9fSUtBAMj1c0oqQgUlPVRCOY8NbL/OmtSxQo/+SG0IAC3k2azUTHGruavh6Q7CFVGZ8epxoCuAvpl9qQzZE9H4Zt3NOOGu2OoyfxbvnacATfV6JPGbMQecXnvM0jddh8MYO1c8Q48Boi3IJJ7SJN6OESJCER8FOveJxC7YipIiPyR7Py3LGOqAQmIqDN9jzpWT8VhOVr5QIREkP2wXv1oCHaQKmmuri3cncznXfyXTZU3ISDtMXwFq7/DiOkWJUdVw4uSujumX/An1l6z78HHyC9j3Zl9APPT4lL9PuW2luFkPs+Dt6ezPYEIlpKmdvpx3m2C1sLJqTlhLdn3uhGUvslfNVYiX0DSgTjER2T4wwxbXcb6QMTRAJB16UCqaXaZSsNfJMiLe/6sqTuRsZy/sgkkzWkJZN/1kUN0P4Dqr2Sk9l8aGrs5VDf24+3H0W3L55dsuz2US2f/3L7SeHKb6COh2vVDhjRGU9h6luq/YPaXrWJjuzLduwR/nEFDIDAbFapb3yF0E=
-  file: 
-    - docker-compose.yml
+    secure: RGNh2MlQ5M74HsVHY/tqW+y3jdydiSHCtJIOAMbftN0ghCZsekYcSRsEYmgZmadaHnXunfTXGS/nT3l4vFM1Pp9nxX6tTeHkqOuF9xlznksH5oiN7Gc+HyuCxV+SRYTJU+DOV7Rqbt9yfdBlTUa290XiXZm+L2VEHEBc6Zduj2R3ez3VQTZV3kzyE74LxPeebUVhN20PPNV9n7T9Y/det5B11jzIJ4tMANj1untn/AaldiIaTNlhGAqCr/AgQAXLTmQ/Kp/Z+dQv6zk6qKAPB089+2PaDWKednwojbAVABWG0q6gJSxMAY3jSDtR4iqiK3/5ksQyHDOJ7HNcGRvaK53ZIxEyCqSpluJOpe2g4bUo8G/tBUBY2IgRYnxb/qrQD3l8uOB+ojiICcNO+qzOYG1l5xlNdNdwFUftLgxYAzmuoJkKEOjtxinbIcQFC6bjCyTF0yOT6pYyHOI8g8yZ8uoyNy+QQhrQqP8dho33tejS+EcrhI5vWnmUm3PrcFumujeZ3PhyTN2n0MlZgbXXkuI/RkHoUuibGIvhznl1RheunoBT22V9ZC8bwIVKsucPMvdiHnoEJmYEIAuZTsmLQVZoVCq/FmzOc4N/uNKvDewnQc+bXajXzsy6Rhj5uHenKqbKlwSyvRbB15jFk2HvJcBjSvbjx5tACvNwticyNc4=
+  file: docker-compose.yml
   on:
     repo: AnnihilerB/cdp-2018
     branch: release
