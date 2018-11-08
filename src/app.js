@@ -1,6 +1,6 @@
 const express = require('express');
 const mariadb = require('mariadb');
-var path = require('path');
+const path = require('path');
 const pool = mariadb.createPool({
   host: 'db',
   user: 'root',
