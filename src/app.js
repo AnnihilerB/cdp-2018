@@ -10,6 +10,7 @@ const app = express();
 app.get('/', function(req, res) {
   // res.send('Hello !');
   res.sendFile('index.html', {root: __dirname});
+  pool.getConnection('SELECT * FROM users');
 });
 
 app.get('/home', function(req, res) {
