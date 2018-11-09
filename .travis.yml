@@ -3,11 +3,11 @@ services:
 - docker
 branches:
   only:
-    - release
+  - release
 node_js:
 - '8'
 install:
-  - npm install
+- npm install
 before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
 - git config --local user.name "Ali"
@@ -19,7 +19,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: RGNh2MlQ5M74HsVHY/tqW+y3jdydiSHCtJIOAMbftN0ghCZsekYcSRsEYmgZmadaHnXunfTXGS/nT3l4vFM1Pp9nxX6tTeHkqOuF9xlznksH5oiN7Gc+HyuCxV+SRYTJU+DOV7Rqbt9yfdBlTUa290XiXZm+L2VEHEBc6Zduj2R3ez3VQTZV3kzyE74LxPeebUVhN20PPNV9n7T9Y/det5B11jzIJ4tMANj1untn/AaldiIaTNlhGAqCr/AgQAXLTmQ/Kp/Z+dQv6zk6qKAPB089+2PaDWKednwojbAVABWG0q6gJSxMAY3jSDtR4iqiK3/5ksQyHDOJ7HNcGRvaK53ZIxEyCqSpluJOpe2g4bUo8G/tBUBY2IgRYnxb/qrQD3l8uOB+ojiICcNO+qzOYG1l5xlNdNdwFUftLgxYAzmuoJkKEOjtxinbIcQFC6bjCyTF0yOT6pYyHOI8g8yZ8uoyNy+QQhrQqP8dho33tejS+EcrhI5vWnmUm3PrcFumujeZ3PhyTN2n0MlZgbXXkuI/RkHoUuibGIvhznl1RheunoBT22V9ZC8bwIVKsucPMvdiHnoEJmYEIAuZTsmLQVZoVCq/FmzOc4N/uNKvDewnQc+bXajXzsy6Rhj5uHenKqbKlwSyvRbB15jFk2HvJcBjSvbjx5tACvNwticyNc4=
+    secure: TpdfZlveP7Dcv0D6xVVSO3SPVBOEgu2yvzzMdkLX4kS04jeK2w2IsFtzrddXZ0jCJBksSFtQWpde4a24fDR0G9/zsjy32Ph1UJ3H5BrIBnd3YVUz0nISo5l+SiEy/esa3BHAsl+f6tPi5ZvQaaU30/n7ERUJ1fQwcdbRxSr0k/OYLYzR0Q+Gv4onhupXbd9ORwZNQ+M6wvAf6RxRYOfhhwj74u2+yVOqSSmZnzq1hzUbBoYZyTunaSoXrcyTMoy2drMdS5sJoHht/UNUpSTn6Gh8Zf/FhvvRgYDqMqXpKBu0GVgWGaADllHtPREuPU56vKAhgUXBQ1kRZZRsYGfanCKJyLyGUc+mZeDBfh3JwQ5a56A/nO8Zo27lMEvVyR2qrQdF6rXAapOekzQCsALh0sAy5jTWqXP37Zon1xVyTur+420To1ImDYUSUVw3fmtQEb2B+9wucD5FdlKyV0A5K8+EIreMR+JQIK1tnCbb+Qsz9bKWYUC9DFs1lGzUfRlzXYuPOpvmgZtYyNFzZjsXr5ymgeWX+ITASmkvDCP88RKt+zefYxm76eQPsxWbZq/zzhBd10r5N5xgrqZgTDu1HBT/T9BG6fci4D1TGRzwwY3M3q/mMyWk+jgCCVLWP9bgcQ7lgaa/4VpbSTMD1u/E6PkKRhpPqPEfqRtNHQwkcj0=
   file: docker-compose.yml
   on:
     repo: AnnihilerB/cdp-2018
