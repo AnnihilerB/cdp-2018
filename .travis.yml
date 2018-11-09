@@ -16,6 +16,7 @@ before_deploy:
 - docker tag "annihilerb/cdp:$TRAVIS_TAG" "annihilerb/cdp:latest"
 - docker push annihilerb/cdp:$TRAVIS_TAG
 - docker push annihilerb/cdp:latest
+- npm run sonar-scanner -- -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=AnnihilerB_cdp-2018 -Dsonar.organization=annihilerb-github -Dsonar.sources=src/ -Dsonar.plsql.version=5.6 -Dsonar.login="$SONAR_TOKEN"
 deploy:
   provider: releases
   api_key:
