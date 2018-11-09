@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "test": "jest --detectOpenHandles --forceExit",
+    "coverage": "jest --collectCoverageFrom=src/**.js --coverage src"
   },
   "dependencies": {
     "express": "4.16.4",
