@@ -14,15 +14,22 @@ const pool = mariadb.createPool({
 async function logUser(name, pass) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT * FROM users where username='${name}'`);
-  if (rows[0] === undefined) {
-    return null;
-  }
-  return {
-    user: rows[0].username,
-    pass: rows[0].password,
-  };
+  return verifyCredentials(rows);
 };
+
+/**
+ * Log the user into the app
+ * @param {string} name The username.
+ * @param {string} pass the password.
+ */
+function verifyCredentials(rows, name, pass) {
+  if (rows[0] !== undefined && rows[0].username === name && rows[0].password === pass) {
+    return true;
+  }
+  return false;
+}
 
 module.exports = {
   logUser: logUser,
+  verifyCredentials: verifyCredentials,
 };

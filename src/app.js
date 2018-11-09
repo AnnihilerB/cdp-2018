@@ -18,8 +18,8 @@ app.get('/', function(req, res) {
 app.post('/user/login', function(req, res) {
   const username = req.body.uname;
   const pass = req.body.psw;
-  dao.logUser(username, pass).then((data) => {
-    if (data !== null && data.user === username && data.pass === pass) {
+  dao.logUser(username, pass).then((connected) => {
+    if (connected) {
       res.send('<h1>Bienvenue</h1>');
       return;
     }
