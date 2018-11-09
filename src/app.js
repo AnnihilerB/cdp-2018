@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
-  // res.send('Hello !');
   res.sendFile('index.html', {root: __dirname});
 });
 
@@ -31,5 +30,3 @@ app.post('/user/login', function(req, res) {
 app.listen(3000, function() {
   console.log('Example app listening on port 3000!');
 });
-
-
