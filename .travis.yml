@@ -3,7 +3,7 @@ services:
 - docker
 branches:
   only:
-  - v[0-9].
+  - /v\d+\.\d+[a-z]/
 node_js:
 - '8'
 install:
