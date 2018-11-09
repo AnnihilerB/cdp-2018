@@ -1,32 +1,35 @@
 const express = require('express');
-const mariadb = require('mariadb');
-const pool = mariadb.createPool({
-  host: 'db',
-  user: 'root',
-  password: 'example',
-  database: 'cdp',
-  connectionLimit: 5});
+const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
+const dao = require('./dataDAO');
+
+// Setting up the app
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
+app.use(bodyParser.json());
+
 app.get('/', function(req, res) {
   // res.send('Hello !');
   res.sendFile('index.html', {root: __dirname});
-  pool.getConnection('SELECT * FROM users');
 });
 
-app.get('/home', function(req, res) {
-  res.send('Maison :-)');
-});
-
-app.get('/user/:uid', function(req, res) {
-  res.send('Bonjour utilisateur ' + req.params.uid);
-});
-
-app.use(function(req, res, next) {
-  res.status(404).send('Page introuvable !');
+app.post('/user/login', function(req, res) {
+  const username = req.body.uname;
+  const pass = req.body.psw;
+  dao.logUser(username, pass).then((data) => {
+    if (data !== null && data.user === username && data.pass === pass) {
+      res.send('<h1>Bienvenue</h1>');
+      return;
+    }
+    res.send('Incorrect credentials');
+  });
 });
 
 app.listen(3000, function() {
-  console.log('Example app listening on port 8080!');
+  console.log('Example app listening on port 3000!');
 });
 
 
