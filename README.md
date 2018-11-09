@@ -1,4 +1,6 @@
 
+[![Maintenability](https://sonarcloud.io/api/project_badges/measure?project=AnnihilerB_cdp-2018&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AnnihilerB_cdp-2018)
+
 | ID | Description                                                                                                                                                                                                                  | Difficulté | Urgence | Planification | ETAT |
 |----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|---------|---------------|------|
 | 1  | "En tant qu'utilisateur, je souhaite pouvoir m'inscrire (e-mail, mot de passe) afin d'accéder aux fonctionnalités de l'application"                                                                                           | 3          |   MOYENNE     | sprint 2       | TODO |
