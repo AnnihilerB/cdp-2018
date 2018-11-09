@@ -44,3 +44,6 @@ ALTER TABLE tasks ADD CONSTRAINT FK_tasks_id FOREIGN KEY (id) REFERENCES users (
 ALTER TABLE tasks ADD CONSTRAINT FK_tasks_id_issue FOREIGN KEY (id_issue) REFERENCES issues (id_issue);
 ALTER TABLE tasks ADD CONSTRAINT FK_tasks_id_sprint FOREIGN KEY (id_sprint) REFERENCES sprints (id_sprint);
 ALTER TABLE sprints ADD CONSTRAINT FK_sprints_id_project FOREIGN KEY (id_project) REFERENCES projects (id_project);
+
+INSERT INTO users (username, password)
+VALUES ('admin', 'pass');
