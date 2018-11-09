@@ -23,5 +23,4 @@ deploy:
   file: docker-compose.yml
   on:
     repo: AnnihilerB/cdp-2018
-    branch: release
     tags: true
