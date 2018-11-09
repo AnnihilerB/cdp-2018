@@ -3,26 +3,24 @@ services:
 - docker
 branches:
   only:
-    - release
+  - /v\d+\.\d+/
 node_js:
-  - '8'
+- '8'
 install:
-  - npm install
+- npm install
 before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
 - git config --local user.name "Ali"
 - git config --local user.email "cherifiali@outlook.fr"
 - docker build . -t "annihilerb/cdp:$TRAVIS_TAG"
 - docker tag "annihilerb/cdp:$TRAVIS_TAG" "annihilerb/cdp:latest"
-- "docker push annihilerb/cdp:$TRAVIS_TAG"
-- "docker push annihilerb/cdp:latest"
+- docker push annihilerb/cdp:$TRAVIS_TAG
+- docker push annihilerb/cdp:latest
 deploy:
   provider: releases
   api_key:
-    secure: AZkicq8RQ2zeIRwR9kppgNbd633/NUC56/NMwsQ3oy1AgdlczEOl5VsdWws1Sxo2TbL1flggzbm67Onn/xeePl+qEjAxPcAOr2SzMuOeDwXu2BvdxIByG6Lc03Qb1z4pM0bX5VFZCPRMW0aXJJtHSLohEAxrdWABp9fSUtBAMj1c0oqQgUlPVRCOY8NbL/OmtSxQo/+SG0IAC3k2azUTHGruavh6Q7CFVGZ8epxoCuAvpl9qQzZE9H4Zt3NOOGu2OoyfxbvnacATfV6JPGbMQecXnvM0jddh8MYO1c8Q48Boi3IJJ7SJN6OESJCER8FOveJxC7YipIiPyR7Py3LGOqAQmIqDN9jzpWT8VhOVr5QIREkP2wXv1oCHaQKmmuri3cncznXfyXTZU3ISDtMXwFq7/DiOkWJUdVw4uSujumX/An1l6z78HHyC9j3Zl9APPT4lL9PuW2luFkPs+Dt6ezPYEIlpKmdvpx3m2C1sLJqTlhLdn3uhGUvslfNVYiX0DSgTjER2T4wwxbXcb6QMTRAJB16UCqaXaZSsNfJMiLe/6sqTuRsZy/sgkkzWkJZN/1kUN0P4Dqr2Sk9l8aGrs5VDf24+3H0W3L55dsuz2US2f/3L7SeHKb6COh2vVDhjRGU9h6luq/YPaXrWJjuzLduwR/nEFDIDAbFapb3yF0E=
-  file: 
-    - docker-compose.yml
+    secure: TpdfZlveP7Dcv0D6xVVSO3SPVBOEgu2yvzzMdkLX4kS04jeK2w2IsFtzrddXZ0jCJBksSFtQWpde4a24fDR0G9/zsjy32Ph1UJ3H5BrIBnd3YVUz0nISo5l+SiEy/esa3BHAsl+f6tPi5ZvQaaU30/n7ERUJ1fQwcdbRxSr0k/OYLYzR0Q+Gv4onhupXbd9ORwZNQ+M6wvAf6RxRYOfhhwj74u2+yVOqSSmZnzq1hzUbBoYZyTunaSoXrcyTMoy2drMdS5sJoHht/UNUpSTn6Gh8Zf/FhvvRgYDqMqXpKBu0GVgWGaADllHtPREuPU56vKAhgUXBQ1kRZZRsYGfanCKJyLyGUc+mZeDBfh3JwQ5a56A/nO8Zo27lMEvVyR2qrQdF6rXAapOekzQCsALh0sAy5jTWqXP37Zon1xVyTur+420To1ImDYUSUVw3fmtQEb2B+9wucD5FdlKyV0A5K8+EIreMR+JQIK1tnCbb+Qsz9bKWYUC9DFs1lGzUfRlzXYuPOpvmgZtYyNFzZjsXr5ymgeWX+ITASmkvDCP88RKt+zefYxm76eQPsxWbZq/zzhBd10r5N5xgrqZgTDu1HBT/T9BG6fci4D1TGRzwwY3M3q/mMyWk+jgCCVLWP9bgcQ7lgaa/4VpbSTMD1u/E6PkKRhpPqPEfqRtNHQwkcj0=
+  file: docker-compose.yml
   on:
     repo: AnnihilerB/cdp-2018
-    branch: release
     tags: true
