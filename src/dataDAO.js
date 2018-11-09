@@ -15,7 +15,7 @@ const pool = mariadb.createPool({
 async function logUser(name, pass) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT * FROM users where username='${name}'`);
-  return verifyCredentials(rows);
+  return verifyCredentials(rows, name, pass);
 };
 
 /**
