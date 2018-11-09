@@ -10,6 +10,7 @@ const pool = mariadb.createPool({
  * Log the user into the app
  * @param {string} name The username.
  * @param {string} pass the password.
+ * @return {boolean} true if user is connected.
  */
 async function logUser(name, pass) {
   const conn = await pool.getConnection();
@@ -18,9 +19,11 @@ async function logUser(name, pass) {
 };
 
 /**
- * Log the user into the app
+ * Verify that the provided credentials are correct.
+ * @param {object} rows Row extracted from database.
  * @param {string} name The username.
  * @param {string} pass the password.
+ * @return {boolean} true if the credentials are correct else otherwise.
  */
 function verifyCredentials(rows, name, pass) {
   if (rows[0] !== undefined && rows[0].username === name && rows[0].password === pass) {
