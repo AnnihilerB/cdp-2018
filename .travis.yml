@@ -1,9 +1,6 @@
 language: node_js
 services:
 - docker
-branches:
-  only:
-  - /v\d+\.\d+[a-z]/
 node_js:
 - '8'
 install:
