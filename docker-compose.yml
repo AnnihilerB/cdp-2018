@@ -4,7 +4,7 @@ services:
   web:
     container_name: webappcdp
     restart : always
-    build: annihilerb/cdp:latest
+    image: annihilerb/cdp:latest
     depends_on:
       - db
     ports:
