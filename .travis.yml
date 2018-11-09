@@ -8,6 +8,8 @@ node_js:
   - '8'
 install:
   - npm install
+script:
+  - npm run-script e2e
 before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
 - git config --local user.name "Ali"
