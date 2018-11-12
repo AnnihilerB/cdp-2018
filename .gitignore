@@ -3,3 +3,4 @@ package-lock.json
 coverage/
 .vscode/settings.json
 .DS_Store
+reports/
