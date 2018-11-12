@@ -11,10 +11,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
-  res.sendFile('index.html', {root: __dirname});
-});
-
 app.post('/user/login', function(req, res) {
   const username = req.body.uname;
   const pass = req.body.psw;
