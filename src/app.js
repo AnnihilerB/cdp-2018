@@ -23,7 +23,7 @@ app.post('/user/login', function(req, res) {
       res.send('<h1>Bienvenue</h1>');
       return;
     }
-    res.send('Incorrect credentials');
+    res.send('<h1>Incorrect credentials</h1>');
   });
 });
 

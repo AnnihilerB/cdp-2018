@@ -1,4 +1,4 @@
-const {Builder, By, Key} = require('selenium-webdriver');
+/*const {Builder, By, Key} = require('selenium-webdriver');
 
 (async function example() {
   const driver = await new Builder().forBrowser('safari').build();
@@ -11,4 +11,27 @@ const {Builder, By, Key} = require('selenium-webdriver');
   } finally {
     await driver.quit();
   }
-})();
+})();*/
+
+module.exports = { 
+  'Authentication succes'(client) {
+    client
+      .url('http://webappcdp:3000/')
+      .waitForElementVisible('body')
+      .setValue('#name', 'admin')
+      .setValue('#psw', 'admin')
+      .click('#sub')
+      .assert.containsText('h1', 'Bienvenue')
+      .end();
+  },'Authentication failure'(client) {
+    client
+      .url('http://webappcdp:3000/')
+      .waitForElementVisible('body')
+      .setValue('#name', 'admin')
+      .setValue('#psw', 'false')
+      .waitForElementVisible('#sub')
+      .click('#sub')
+      .assert.containsText('h1', 'Incorrect credentials')
+      .end();
+  }
+};
