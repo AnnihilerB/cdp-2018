@@ -1,5 +1,4 @@
-
-[![Maintenability](https://sonarcloud.io/api/project_badges/measure?project=AnnihilerB_cdp-2018&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AnnihilerB_cdp-2018)
+[![CircleCI](https://circleci.com/gh/AnnihilerB/cdp-2018/tree/master.svg?style=svg)](https://circleci.com/gh/AnnihilerB/cdp-2018/tree/master)
 
 | ID | Description                                                                                                                                                                                                                  | Difficulté | Urgence | Planification | ETAT |
 |----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|---------|---------------|------|
