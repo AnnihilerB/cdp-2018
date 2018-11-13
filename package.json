@@ -20,7 +20,8 @@
     "nightwatch": "^0.9.21",
     "selenium-webdriver": "4.0.0-alpha.1",
     "sonar-scanner": "3.1.0",
-    "nodemon": "1.18.6"
+    "nodemon": "1.18.6",
+    "jest-junit-reporter":"1.1.0"
   },
   "husky": {
     "hooks": {
@@ -28,6 +29,7 @@
     }
   },
   "jest": {
+    "testResultsProcessor": "./node_modules/jest-junit-reporter",
     "testPathIgnorePatterns": [
       "node_modules/",
       "src/__tests__/e2e"
