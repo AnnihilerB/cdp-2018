@@ -1,0 +1,97 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/app_build
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - src/
+            - resources/ 
+            - package.json
+            - node_modules/
+            - Dockerfile
+            - docker-compose.yml
+
+  unit_test:
+    working_directory: ~/app_build
+    docker:
+      - image: circleci/node:8
+    environment:
+      - TEST_REPORT_PATH: test-results/jest
+    steps:
+      - attach_workspace:
+          at: ~/app_build
+      - run: ls node_modules/jest-junit-reporter
+      - run: mkdir -p test-results/jest
+      - run: npm test
+      - run: ls
+      - store_test_results:
+          path: test-results/
+
+  docker_push:
+    working_directory: ~/app_build
+    machine: true
+    steps:
+      - attach_workspace:
+          at: ~/app_build
+      - run:
+          name: Push to DockerHub
+          command: |
+            echo "tag"
+            echo ${CIRCLE_TAG}
+            docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASS}
+            docker build . -t ${DOCKER_USERNAME}/cdp:${CIRCLE_TAG}
+            docker tag ${DOCKER_USERNAME}/cdp:${CIRCLE_TAG} ${DOCKER_USERNAME}/cdp:latest
+            docker push ${DOCKER_USERNAME}/cdp:${CIRCLE_TAG}
+            docker push ${DOCKER_USERNAME}/cdp:latest
+
+  deploy:
+    working_directory: ~/app_build
+    docker:
+    - image: cibuilds/github:0.10
+    steps:
+    - attach_workspace:
+        at: ~/app_build
+    - run: zip -r release.zip docker-compose.yml resources
+    - run:
+        name: Publish Release on GitHub
+        command: |
+          ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} release.zip
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - unit_test:
+          requires:
+            - build
+      - docker_push:
+          requires:
+            - unit_test
+          filters:
+            tags:
+              only: /v\d+\.\d+/
+            branches:
+              ignore: /.*/
+      - deploy:
+          requires:
+            - docker_push
+          filters:
+            tags:
+              only: /v\d+\.\d+/
+            branches:
+              ignore: /.*/
