@@ -34,10 +34,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/app_build
-      - run: ls node_modules/jest-junit-reporter
       - run: mkdir -p test-results/jest
       - run: npm test
-      - run: ls
       - store_test_results:
           path: test-results/
 
@@ -50,8 +48,6 @@ jobs:
       - run:
           name: Push to DockerHub
           command: |
-            echo "tag"
-            echo ${CIRCLE_TAG}
             docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASS}
             docker build . -t ${DOCKER_USERNAME}/cdp:${CIRCLE_TAG}
             docker tag ${DOCKER_USERNAME}/cdp:${CIRCLE_TAG} ${DOCKER_USERNAME}/cdp:latest
