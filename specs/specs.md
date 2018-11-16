@@ -3,6 +3,14 @@
 Ce fichier détaille l'ensemble des conventions de nommage et de codage.
 Le langage utilisé est l'anglais.
 
+## Quand est-ce que une tâche est considérée comme "DONE"
+
+Une tâche est considérée comme fini (état DONE) quand la phase de développement est terminée mais aussi que les tests unitaires associés à la tâche sont réalisés et qu'ils passent.
+
+## Tests
+
+Un, ou une série de tests sont validés quand ces derniers passent et vérifient le code. Un test valide doit au moins afficher "OK" ainsi que l'heure et la date du lancement du test.
+
 ## Linter
 
 Le linter utilisé est ESLint. Le linter est configuré pour analyser le code en temps réel.
