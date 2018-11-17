@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon src/app.js localhost 3000",
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "date && jest --detectOpenHandles --forceExit",
     "coverage": "jest --collectCoverageFrom=src/**.js --coverage src",
     "e2e": "node src/__tests__/e2e/e2e.js",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner"
