@@ -23,6 +23,10 @@ app.post('/user/login', function(req, res) {
   });
 });
 
+app.get('/home', function(req, res) {
+  res.sendFile('public/home.html', {root: __dirname});
+});
+
 app.listen(3000, function() {
   console.log('Example app listening on port 3000!');
 });
