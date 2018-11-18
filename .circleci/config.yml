@@ -42,6 +42,7 @@ jobs:
 
   e2e_test:
     working_directory: ~/app_build
+    machine : true
     docker:
       - image: circleci/node:8
     environment:
