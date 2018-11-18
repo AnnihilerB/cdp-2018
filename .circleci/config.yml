@@ -24,6 +24,7 @@ jobs:
             - node_modules/
             - Dockerfile
             - docker-compose.yml
+            - docker-compose-dev.yml
 
   unit_test:
     working_directory: ~/app_build
@@ -36,6 +37,21 @@ jobs:
           at: ~/app_build
       - run: mkdir -p test-results/jest
       - run: npm test
+      - store_test_results:
+          path: test-results/
+
+  e2e_test:
+    working_directory: ~/app_build
+    docker:
+      - image: circleci/node:8
+    environment:
+      - TEST_REPORT_PATH: test-results/jest
+    steps:
+      - attach_workspace:
+          at: ~/app_build
+      - run: mkdir -p test-results/nightwatch
+      - run: docker-compose -f docker-compose-dev.yml up -d --build 
+      - run: npm run nightwatch
       - store_test_results:
           path: test-results/
 
@@ -75,9 +91,13 @@ workflows:
       - unit_test:
           requires:
             - build
+      - e2e_test:
+          requires:
+            - build
       - docker_push:
           requires:
             - unit_test
+            - e2e_test
           filters:
             tags:
               only: /v\d+\.\d+/
