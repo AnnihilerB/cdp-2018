@@ -43,8 +43,7 @@ jobs:
   e2e_test:
     working_directory: ~/app_build
     docker:
-      - image: circleci/node:8
-      - image: circleci/node-jessie-browsers
+      - image: circleci/node:8=browsers
     environment:
       - TEST_REPORT_PATH: test-results/e2e
     steps:
