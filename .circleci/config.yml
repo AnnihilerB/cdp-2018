@@ -49,6 +49,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/app_build
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run: mkdir -p test-results/nightwatch
       - run: docker-compose -f docker-compose-dev.yml up -d --build 
       - run: npm run nightwatch
