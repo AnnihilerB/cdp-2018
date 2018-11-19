@@ -57,6 +57,7 @@ jobs:
           command: |
             java -jar selenium-server-standalone-3.9.1.jar
           background: true
+      - run: sleep 10
       - run: npm run nightwatch
       - store_test_results:
           path: test-results/
