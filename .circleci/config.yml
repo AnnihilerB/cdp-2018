@@ -45,7 +45,6 @@ jobs:
     docker:
       - image: circleci/node:8-browsers
       - image: circleci/mariadb
-        command: mysql cdp < resources/cdp.sql
         environment:
           - MYSQL_HOST: 127.0.0.1
           - MYSQL_DB: cdp
@@ -55,6 +54,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/app_build
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run: mkdir -p test-results/e2e
       - run: curl -O selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar
       - run:
@@ -62,15 +63,8 @@ jobs:
           command: |
             java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e/selenium.log
           background: true
-      - run: 
-          name: Start website
-          command: |
-            npm start
-          background: true
-      - run: sudo apt install mariadb-client
-      - run: sleep 15
-      - run: mysql cdp < resources/cdp.sql
-      - run: curl http://localhost:3000
+      - run: sleep 10
+      - run: curl http://webappcdp:3000
       - run: npm run nightwatch
       - store_test_results:
           path: test-results/
