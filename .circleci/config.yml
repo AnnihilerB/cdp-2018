@@ -44,11 +44,10 @@ jobs:
     working_directory: ~/app_build
     docker:
       - image: circleci/node:8-browsers
+      - image: circleci/mariadb
     environment:
       - TEST_REPORT_PATH: test-results/e2e
     steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
       - attach_workspace:
           at: ~/app_build
       - run: mkdir -p test-results/e2e
@@ -58,7 +57,12 @@ jobs:
           command: |
             java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e/selenium.log
           background: true
-      - run: docker-compose up -d --build
+      - run: 
+          name: Start website
+          command: |
+            npm start
+          background: true
+      - run: mysql -h 127.0.0.1 -u root -p example cdp < resources/cdp.sql
       - run: sleep 15
       - run: curl http://localhost:3000
       - run: npm run nightwatch
