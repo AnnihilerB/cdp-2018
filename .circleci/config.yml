@@ -62,7 +62,7 @@ jobs:
           command: |
             npm start
           background: true
-      - run: sleep 10
+      - run: sleep 30
       - run: npm run nightwatch
       - store_test_results:
           path: test-results/
