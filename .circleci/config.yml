@@ -25,6 +25,7 @@ jobs:
             - Dockerfile
             - docker-compose.yml
             - nightwatch.json
+            - src/__tests__/e2e/e2e.js
 
   unit_test:
     working_directory: ~/app_build
@@ -58,7 +59,7 @@ jobs:
           command: |
             docker-compose up -d --build
             docker-compose start
-            docker run --shm-size 1G --rm -v ./src/__tests__/e2e/e2e.js:/app/index.js alekzonder/puppeteer:latest
+            docker run --shm-size 1G --rm -v e2e.js:/app/index.js alekzonder/puppeteer:latest
       - store_test_results:
           path: test-results/
 
