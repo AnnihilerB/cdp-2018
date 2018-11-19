@@ -48,6 +48,8 @@ jobs:
     environment:
       - TEST_REPORT_PATH: test-results/e2e
     steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
       - attach_workspace:
           at: ~/app_build
       - run: mkdir -p test-results/e2e
@@ -57,12 +59,7 @@ jobs:
           command: |
             java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e/selenium.log
           background: true
-      - run: 
-          name: Launching the app
-          command: |
-            npm start
-          background: true
-      - run: sleep 15
+      - run: docker-compose -f docker-compose-dev.yml up -d --build
       - run: npm run nightwatch
       - store_test_results:
           path: test-results/
