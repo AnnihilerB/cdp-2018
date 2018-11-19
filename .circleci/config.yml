@@ -56,7 +56,6 @@ jobs:
           at: ~/app_build
       - run: mkdir -p test-results/e2e
       - run: curl -O selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar
-      - run: 
           name: Start Selenium
           command: |
             java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e/selenium.log
@@ -66,8 +65,9 @@ jobs:
           command: |
             npm start
           background: true
-      - run: mysqld -h 127.0.0.1 -u root cdp < resources/cdp.sql
+      - run: sudo apt install mariadb-client
       - run: sleep 15
+      - run: mysql -h localhost -u root -p example cdp < resources/cdp.sql
       - run: curl http://localhost:3000
       - run: npm run nightwatch
       - store_test_results:
