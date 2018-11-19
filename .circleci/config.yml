@@ -68,9 +68,9 @@ jobs:
             npm start
           background: true
       - run: sudo apt install -y mysql-client
-      - run: mysqld
-      - run: mysql cdp < resources/cdp.sql
+      - run: sudo services mysql start
       - run: sleep 15
+      - run: mysql cdp < resources/cdp.sql
       - run: curl http://localhost:3000
       - run: npm run nightwatch
       - store_test_results:
