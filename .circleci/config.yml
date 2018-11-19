@@ -54,8 +54,8 @@ jobs:
       - run: mkdir -p test-results/e2e
       - run: docker-compose up -d --build
       - run: sleep 10
-      - run: docker exec name e2e npm install
-      - run: docker exec name e2e node /app/src/__tests__/e2e/e2e.js
+      - run: docker exec e2e npm install
+      - run: docker exec e2e node /app/src/__tests__/e2e/e2e.js
       - store_test_results:
           path: test-results/
 
