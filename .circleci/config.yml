@@ -51,7 +51,7 @@ jobs:
       - attach_workspace:
           at: ~/app_build
       - run: mkdir -p test-results/e2e
-      - run: curl -O selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar
+      - run: curl -O selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar -log test-results/e2e
       - run: 
           name: Start Selenium
           command: |
@@ -62,7 +62,7 @@ jobs:
           command: |
             npm start
           background: true
-      - run: sleep 30
+      - run: sleep 15
       - run: npm run nightwatch
       - store_test_results:
           path: test-results/
