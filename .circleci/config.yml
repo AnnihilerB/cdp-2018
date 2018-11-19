@@ -51,10 +51,11 @@ jobs:
       - attach_workspace:
           at: ~/app_build
       - run: mkdir -p test-results/e2e
-      - run: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      - run: curl -O selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar
       - run: 
           name: Start Selenium
-          command: java -jar selenium-server-standalone-3.5.3.jar -log test-results/e2e/selenium.log
+          command: |
+            java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e/selenium.log
           background: true
       - run: npm run nightwatch
       - store_test_results:
