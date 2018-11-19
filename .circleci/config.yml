@@ -59,7 +59,7 @@ jobs:
           command: |
             java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e/selenium.log
           background: true
-      - run: docker-compose -f docker-compose-dev.yml up -d --build
+      - run: docker-compose up -d --build
       - run: sleep 10
       - run: npm run nightwatch
       - store_test_results:
