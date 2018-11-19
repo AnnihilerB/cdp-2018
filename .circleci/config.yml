@@ -51,11 +51,11 @@ jobs:
       - attach_workspace:
           at: ~/app_build
       - run: mkdir -p test-results/e2e
-      - run: curl -O selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar -log test-results/e2e
+      - run: curl -O selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar
       - run: 
           name: Start Selenium
           command: |
-            java -jar selenium-server-standalone-3.9.1.jar
+            java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e
           background: true
       - run: 
           name: Launching the app
