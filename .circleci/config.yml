@@ -55,7 +55,7 @@ jobs:
       - run: 
           name: Start Selenium
           command: |
-            java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e/selenium.log
+            java -jar selenium-server-standalone-3.9.1.jar
           background: true
       - run: npm run nightwatch
       - store_test_results:
