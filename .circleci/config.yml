@@ -56,7 +56,7 @@ jobs:
           name: Start app
           command: |
             docker-compose up -d --build
-            docker compose start
+            docker-compose start
             docker exec e2e npm install
             docker exec e2e node /app/src/__tests__/e2e/e2e.js
       - store_test_results:
