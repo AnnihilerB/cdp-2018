@@ -68,7 +68,7 @@ jobs:
             npm start
           background: true
       - run: sudo apt install -y mysql-client
-      - run: sudo services mysql start
+      - run: sudo service mysql start
       - run: sleep 15
       - run: mysql cdp < resources/cdp.sql
       - run: curl http://localhost:3000
