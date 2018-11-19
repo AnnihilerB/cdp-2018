@@ -19,3 +19,12 @@ services:
       MYSQL_DATABASE: cdp
     volumes:
       - ./cdp.sql:/docker-entrypoint-initdb.d/cdp.sql
+  
+  puppeteer:
+    container_name: e2e
+    image: node:8
+    depends_on:
+      - db
+      - web
+    volumes:
+      - ./src:/app/src

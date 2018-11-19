@@ -44,11 +44,6 @@ jobs:
     working_directory: ~/app_build
     docker:
       - image: circleci/node:8-browsers
-      - image: circleci/mariadb
-        environment:
-          - MYSQL_HOST: 127.0.0.1
-          - MYSQL_DB: cdp
-          - MYSQL_ROOT_PASSWORD: example
     environment:
       - TEST_REPORT_PATH: test-results/e2e
     steps:
@@ -57,16 +52,10 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run: mkdir -p test-results/e2e
-      - run: curl -O selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar
-      - run:
-          name: Start Selenium
-          command: |
-            java -jar selenium-server-standalone-3.9.1.jar -log test-results/e2e/selenium.log
-          background: true
       - run: docker-compose up -d --build
       - run: sleep 10
-      - run: curl http://webappcdp:3000
-      - run: npm run nightwatch
+      - run: docker exec name e2e npm install
+      - run: docker exec name e2e node /app/src/__tests__/e2e/e2e.js
       - store_test_results:
           path: test-results/
 
