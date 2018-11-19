@@ -48,8 +48,7 @@ jobs:
         environment:
           - MYSQL_HOST: 127.0.0.1
           - MYSQL_DB: cdp
-          - MYSQL_USER: root
-          - MYSQL_PASSWORD: example
+          - MYSQL_ROOT_PASSWORD: example
     environment:
       - TEST_REPORT_PATH: test-results/e2e
     steps:
@@ -68,7 +67,6 @@ jobs:
             npm start
           background: true
       - run: sudo apt install -y mysql-client
-      - run: sudo service mysql start
       - run: sleep 15
       - run: mysql cdp < resources/cdp.sql
       - run: curl http://localhost:3000
