@@ -44,6 +44,7 @@ jobs:
     working_directory: ~/app_build
     docker:
       - image: circleci/node:8-browsers
+      - image: alekzonder/puppeteer:latest
     environment:
       - TEST_REPORT_PATH: test-results/e2e
     steps:
@@ -57,7 +58,7 @@ jobs:
           command: |
             docker-compose up -d --build
             docker-compose start
-            docker exec webappcdp curl --retry 10 http://localhost:3000
+            docker run --shm-size 1G --rm -v src/__tests__/e2e/e2e.js:/app/index.js alekzonder/puppeteer:latest
       - store_test_results:
           path: test-results/
 
