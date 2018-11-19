@@ -45,7 +45,6 @@ jobs:
     docker:
       - image: circleci/node:8-browsers
       - image: circleci/mariadb
-        command: mysqld 
         environment:
           - MYSQL_HOST: 127.0.0.1
           - MYSQL_DB: cdp
@@ -69,6 +68,7 @@ jobs:
             npm start
           background: true
       - run: sudo apt install -y mysql-client
+      - run: mysqld
       - run: mysql cdp < resources/cdp.sql
       - run: sleep 15
       - run: curl http://localhost:3000
