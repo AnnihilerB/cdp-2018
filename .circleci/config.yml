@@ -25,6 +25,7 @@ jobs:
             - Dockerfile
             - docker-compose.yml
             - docker-compose-dev.yml
+            - nightwatch.json
 
   unit_test:
     working_directory: ~/app_build
