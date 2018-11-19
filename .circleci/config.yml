@@ -59,7 +59,8 @@ jobs:
           command: |
             docker-compose up -d --build
             docker-compose start
-            docker run --shm-size 1G --rm -v e2e.js:/app/index.js alekzonder/puppeteer:latest
+            ls
+            docker run --shm-size 1G --rm -v ./e2e.js:/app/index.js alekzonder/puppeteer:latest
       - store_test_results:
           path: test-results/
 
