@@ -47,6 +47,10 @@ jobs:
       - image: circleci/mariadb
     environment:
       - TEST_REPORT_PATH: test-results/e2e
+      - MYSQL_HOST: 127.0.0.1
+      - MYSQL_DB: cdp
+      - MYSQL_USER: root
+      - MYSQL_PASSWORD: example
     steps:
       - attach_workspace:
           at: ~/app_build
@@ -63,7 +67,7 @@ jobs:
             npm start
           background: true
       - run: sudo apt install -y mysql-client
-      - run: mysql -h 127.0.0.1 -u root -p example cdp < resources/cdp.sql
+      - run: mysql cdp < resources/cdp.sql
       - run: sleep 15
       - run: curl http://localhost:3000
       - run: npm run nightwatch
