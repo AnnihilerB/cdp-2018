@@ -56,10 +56,8 @@ jobs:
           name: Start app
           command: |
             docker-compose up -d --build
-            docker-compose start
-            sleep 30
-            docker exec e2e npm install
-            docker exec e2e node /app/src/__tests__/e2e/e2e.js
+            docker run webappcdp
+            docker exec webappcdp curl --retry 10 --retry-connrefused http://localhost:3000
       - store_test_results:
           path: test-results/
 
