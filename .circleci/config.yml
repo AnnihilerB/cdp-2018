@@ -57,7 +57,7 @@ jobs:
           command: |
             docker-compose up -d --build
             docker-compose start
-            docker exec webappcdp curl --retry 10 --retry-connrefused http://localhost:3000
+            docker exec webappcdp curl --retry 10 http://localhost:3000
       - store_test_results:
           path: test-results/
 
