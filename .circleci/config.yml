@@ -53,7 +53,7 @@ jobs:
           docker_layer_caching: true
       - run: mkdir -p test-results/e2e
       - run: docker-compose up -d --build
-      - run: sleep 30
+      - run: docker-compose start
       - run: docker exec e2e npm install
       - run: docker exec e2e node /app/src/__tests__/e2e/e2e.js
       - store_test_results:
