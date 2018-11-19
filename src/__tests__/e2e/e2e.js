@@ -1,7 +1,7 @@
 module.exports = {
   'Authentication succes'(client) {
     client
-        .url('http://webappcdp:3000/')
+        .url('http://localhost:3000/')
         .waitForElementVisible('body', 1000)
         .setValue('#name', 'admin')
         .setValue('#psw', 'admin')
@@ -10,7 +10,7 @@ module.exports = {
         .end();
   }, 'Authentication failure'(client) {
     client
-        .url('http://webappcdp:3000/')
+        .url('http://localhost:3000/')
         .waitForElementVisible('body', 1000)
         .setValue('#name', 'admin')
         .setValue('#psw', 'false')
@@ -20,7 +20,7 @@ module.exports = {
         .end();
   }, 'Project added'(client) {
     client
-        .url('http://webappcdp:3000/home/projects')
+        .url('http://localhost:3000/home/projects')
         .waitForElementVisible('body', 1000)
         .setValue('#project_id', 'test')
         .setValue('#project_name', 'test')
@@ -33,7 +33,7 @@ module.exports = {
         .end();
   }, 'Sprint added'(client) {
     client
-        .url('http://webappcdp:3000/home/sprints')
+        .url('http://localhost:3000/home/sprints')
         .waitForElementVisible('body', 1000)
         .setValue('#sprint_id', 'test')
         .setValue('#sprint_name', 'test')
@@ -45,7 +45,7 @@ module.exports = {
         .end();
   }, 'Task added'(client) {
     client
-        .url('http://webappcdp:3000/home/tasks')
+        .url('http://localhost:3000/home/tasks')
         .waitForElementVisible('body', 1000)
         .setValue('#task_id', 'test')
         .setValue('#task_name', 'test')
@@ -57,7 +57,7 @@ module.exports = {
         .end();
   }, 'issue added'(client) {
     client
-        .url('http://webappcdp:3000/home/issues')
+        .url('http://localhost:3000/home/issues')
         .waitForElementVisible('body', 1000)
         .setValue('#issue_id', 'test')
         .setValue('#issue_description', 'test')
