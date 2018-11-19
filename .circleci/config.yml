@@ -45,6 +45,7 @@ jobs:
     docker:
       - image: circleci/node:8-browsers
       - image: circleci/mariadb
+        command: mysqld -u cdp < resources/cdp.sql
         environment:
           - MYSQL_HOST: 127.0.0.1
           - MYSQL_DB: cdp
@@ -66,7 +67,6 @@ jobs:
           command: |
             npm start
           background: true
-      - run: mysqld -u cdp < resources/cdp.sql
       - run: sleep 15
       - run: curl http://localhost:3000
       - run: npm run nightwatch
