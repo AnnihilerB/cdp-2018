@@ -2,7 +2,7 @@ FROM node:8
 
 WORKDIR /app
 
-COPY src src
+COPY src/ src/
 COPY package.json .
 COPY jest.config.js .
 COPY jest-puppeteer.config.js .
