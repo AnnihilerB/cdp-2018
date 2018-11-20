@@ -1,6 +1,6 @@
 describe('Login user', () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:3000');
+    await page.goto('http://webappcdp:3000');
   });
 
   it('should log the user correctly', async () => {
@@ -13,6 +13,6 @@ describe('Login user', () => {
       page.waitForNavigation({waitUntil: 'networkidle0'}),
     ]);
     const url = page.url();
-    expect(url).toBe('http://localhost:3000/home');
+    expect(url).toBe('http://webappcdp:3000/home');
   });
 });
