@@ -44,7 +44,6 @@ jobs:
       - run: docker-compose start
       - run: docker exec webappcdp ls /app
       - run: docker exec webappcdp ls /app/src
-      - run: docker exec webappcdp ls /app/resources
       - run: docker exec webappcdp ls /app/node_modules
       - run: docker exec webappcdp npm test
       - store_test_results:
