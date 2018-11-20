@@ -6,21 +6,26 @@
 </head>
 <body>
 
-<h2>Login Form</h2>
+<h2>Create an Account</h2>
 
-<form method="POST" action="/user/login">
+<form method="POST" action="/user/create">
   <div class="container">
     <label for="uname"><b>Username</b></label>
     <div>   
          <input id="name" type="text" placeholder="Enter Username" name="uname" required>
     </div>
     <label for="psw"><b>Password</b></label>
-    <input id="psw" type="password" placeholder="Enter Password" name="psw" required>
-        
+    <input id="psw" type="password" placeholder="Enter Password" name="psw1" required>
+    
+    <label for="psw"><b>Password</b></label>
+    <input id="psw" type="password" placeholder="Enter again your Password" name="psw2" required>
+    
+    <label for="email"><b>em@il</b></label>
+    <input id="psw" type="email" placeholder="Enter your e-mail address" name="email" required>
+    
     <button id="sub" type="submit">Login</button>
   </div>
 </form>
 
-<div> New user? <a href="http://localhost:3000/create_account">Create an account</a> </div>
 </body>
 </html>

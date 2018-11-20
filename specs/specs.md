@@ -34,8 +34,13 @@ Le fichier *index.html* représente le fichier d'authentification.
 
 Le fichier *home.html* représente le fichier d'accueil.
 
+Le fichier *create_account.html* représente le fichier de création de compte.
+
+Le path /create_account redirige vers le formulaire de création de compte dans la base de donnée.
+
 Le path /home/nomtable redérige vers le formulaire d'ajout nomtable. 
-ex : /home/project/ redérige vers la page d'ajout                       d'un projet.
+ex : /home/project/ redérige vers la page d'ajout d'un projet.
 
 Les champs des formulaires sont sous la forme nomtable_nomchamp, pour les clés étrangères nomtable_nomtable2_nomchamp.
-ex : project_name fait référence au nom d'un projet,                   sprint_project_id fait référence à l'id du projet auquel le       sprint est affecté.
+ex : project_name fait référence au nom d'un projet,
+     sprint_project_id fait référence à l'id du projet auquel le sprint est affecté.
