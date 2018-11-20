@@ -1,10 +1,4 @@
-const mariadb = require('mariadb');
-const pool = mariadb.createPool({
-  host: 'db',
-  user: 'root',
-  password: 'example',
-  database: 'cdp',
-  connectionLimit: 5});
+const pool = require('./databaseDAO').pool;
 
 /**
  * Log the user into the app
@@ -13,6 +7,7 @@ const pool = mariadb.createPool({
  * @return {boolean} true if user is connected.
  */
 async function logUser(name, pass) {
+  console.log(pool);
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT * FROM users where username='${name}'`);
   return verifyCredentials(rows, name, pass);
