@@ -25,6 +25,7 @@ jobs:
             - Dockerfile
             - docker-compose-dev.yml
             - jest.config.js
+            - jest-puppeteer.config.js
 
   unit_test:
     working_directory: ~/app_build
