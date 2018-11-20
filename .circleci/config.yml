@@ -33,10 +33,13 @@ jobs:
     environment:
       - TEST_REPORT_PATH: test-results/jest
     steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
       - attach_workspace:
           at: ~/app_build
-      - run: mkdir -p test-results/jest
-      - run: npm test
+      - run: docker-compose up -d --build
+      - run: docker-compose start
+      - run: docker exec webappcdp npm test
       - store_test_results:
           path: test-results/
 
