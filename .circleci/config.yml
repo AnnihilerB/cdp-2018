@@ -23,7 +23,7 @@ jobs:
             - package.json
             - node_modules/
             - Dockerfile
-            - docker-compose.yml
+            - docker-compose-dev.yml
             - jest.config.js
 
   unit_test:
@@ -37,7 +37,7 @@ jobs:
           docker_layer_caching: true
       - attach_workspace:
           at: ~/app_build
-      - run: docker-compose up -d --build
+      - run: docker-compose -f docker-compose-dev.yml up -d --build
       - run: docker-compose start
       - run: docker exec webappcdp npm test
       - store_test_results:
