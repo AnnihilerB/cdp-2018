@@ -82,7 +82,9 @@ workflows:
   main:
     jobs:
       - build
-      - unit_test
+      - unit_test:
+          requires:
+            - build
       - docker_push:
           requires:
             - unit_test
