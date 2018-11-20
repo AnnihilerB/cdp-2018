@@ -24,6 +24,7 @@ jobs:
             - node_modules/
             - Dockerfile
             - docker-compose.yml
+            - jest.config.js
 
   unit_test:
     working_directory: ~/app_build
