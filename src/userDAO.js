@@ -48,7 +48,23 @@ function verifyPassword(psw1, psw2) {
   }
   return false;
 }
+/**
+ * Verify that the account name doesn't exists in the Data Base
+ * @param {string} accountName name of the account te user wants
+ * @return {boolean}
+ */
+async function userAlreadyExists(accountName) {
+  const conn = await pool.getConnection();
+  const rows = await conn.query(`SELECT username FROM users where username=(?)`, accountName);
+  if (rows[0].username !== undefined) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 module.exports = {
+  userAlreadyExists,
   createUser: createUser,
   logUser: logUser,
   verifyPassword: verifyPassword,
