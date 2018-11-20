@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const userDAO = require('./userDAO');
 const projectDAO = require('./projectDAO');
+const sprintDAO = require('./sprintDAO');
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 const renderer = require('./renderer');
@@ -46,6 +47,9 @@ app.post('/user/create', function(req, res) {
 app.get('/project', function(req, res) {
   JSDOM.fromFile('src/public/form.html').then((dom) => {
     const form = dom.window.document.querySelector('form');
+    const h2 = dom.window.document.querySelector('h2');
+    h2.innerHTML = "Créer mon projet"
+    form.action = "/project/add";
     form.innerHTML = renderer.renderProjectForm();
     res.send(dom.serialize());
   });
@@ -56,6 +60,25 @@ app.post('/project/add', function(req, res) {
   const sprintDuration = req.body.sprint_duration;
   projectDAO.createProject(projectName, sprintDuration);
   res.send('<p>Project Created</p>');
+});
+
+app.get('/sprint', function(req, res) {
+  JSDOM.fromFile('src/public/form.html').then((dom) => {
+    const form = dom.window.document.querySelector('form');
+    const h2 = dom.window.document.querySelector('h2');
+    h2.innerHTML = "Créer mon sprint"
+    form.action = "/sprint/add";
+    form.innerHTML = renderer.renderSprintForm();
+    res.send(dom.serialize());
+  });
+});
+
+app.post('/sprint/add', function(req, res) {
+  const sprintName = req.body.sprint;
+  const sprintState = req.body.sprint_state;
+  const projectID = req.body.sprint_projectid;
+  sprintDAO.createSprint(sprintName, sprintState, projectID);
+  res.send('<p>Sprint Created</p>');
 });
 
 app.get('/home', function(req, res) {
