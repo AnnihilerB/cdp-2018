@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon src/app.js localhost 3000",
-    "test": "date && jest --collectCoverageFrom=src/**.js --coverage --detectOpenHandles --forceExit"
+    "test": "date && jest --collectCoverageFrom=src/**.js --detectOpenHandles --forceExit --coverage src"
   },
   "dependencies": {
     "express": "4.16.4",

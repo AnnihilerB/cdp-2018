@@ -40,6 +40,7 @@ jobs:
       - run: docker-compose -f docker-compose-dev.yml up -d --build
       - run: mv docker-compose-dev.yml docker-compose.yml
       - run: docker-compose start
+      - run: docker exec webappcdp ls /app/src
       - run: docker exec webappcdp npm test
       - store_test_results:
           path: test-results/
