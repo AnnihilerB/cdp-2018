@@ -1,3 +1,8 @@
+/**
+ * Render the fields to add int the DOM for creating
+ * the project form
+ * @return {string} String representation of the form.
+ */
 function renderProjectForm() {
   const projectName = 'Project name: <br>';
   const input = '<input type="text" name="project"><br>';
