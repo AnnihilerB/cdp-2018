@@ -12,6 +12,7 @@ describe('Login user', () => {
     await page.keyboard.type('pass');
     await Promise.all([
       page.click('button#sub'),
+      page.waitForNavigation({waitUntil: 'load'}),
       page.waitForNavigation({waitUntil: 'networkidle0'}),
     ]);
     const url = page.url();
