@@ -18,7 +18,7 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
-            - src/*
+            - src/
             - resources/ 
             - package.json
             - node_modules/
@@ -40,11 +40,6 @@ jobs:
           at: ~/app_build
       - run: ls src/
       - run: docker-compose -f docker-compose-dev.yml up -d --build
-      - run: mv docker-compose-dev.yml docker-compose.yml
-      - run: docker-compose start
-      - run: docker exec webappcdp ls /app
-      - run: docker exec webappcdp ls /app/src
-      - run: docker exec webappcdp ls /app/node_modules
       - run: docker exec webappcdp npm test
       - store_test_results:
           path: test-results/
