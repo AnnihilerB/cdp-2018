@@ -1,3 +1,5 @@
+jest.setTimeout(10000);
+
 describe('Login user', () => {
   beforeAll(async () => {
     await page.goto('http://localhost:3000');
