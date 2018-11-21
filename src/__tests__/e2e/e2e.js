@@ -1,4 +1,4 @@
-jest.setTimeout(10000);
+jest.setTimeout(30000);
 
 describe('Login user', () => {
   beforeAll(async () => {
