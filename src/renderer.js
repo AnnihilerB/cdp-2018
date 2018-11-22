@@ -14,6 +14,11 @@ function renderProjectForm() {
   return projectName+input+sprintDuration+input2Weeks+input3Weeks+button;
 }
 
+/**
+ * Render the fields to add int the DOM for creating
+ * the sprint form
+ * @return {string} String representation of the form.
+ */
 function renderSprintForm() {
   const sprintName = 'Sprint name: <br>';
   const input = '<input type="text" name="sprint"><br>';

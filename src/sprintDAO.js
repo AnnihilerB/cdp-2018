@@ -4,13 +4,13 @@ const columns = 'name_sprint, state_sprint, id_project';
 
 /**
  * Register a project into the database.
- * @param {string} name_sprint Names of the sprint.
- * @param {string} state_sprint Sprint state.
- * @param {int} id_project sprint's project id.
+ * @param {string} nameSprint Names of the sprint.
+ * @param {string} stateSprint Sprint state.
+ * @param {int} idProject sprint's project id.
  */
-async function createSprint(name_sprint, state_sprint, id_project) {
+async function createSprint(nameSprint, stateSprint, idProject) {
   const conn = await pool.getConnection();
-  await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${name_sprint}', '${state_sprint}', '${id_project}');`);
+  await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameSprint}', '${stateSprint}', '${idProject}');`);
 };
 
 module.exports = {

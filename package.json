@@ -4,17 +4,18 @@
   "private": true,
   "scripts": {
     "start": "nodemon src/app.js localhost 3000",
-    "test": "date && jest --collectCoverageFrom=src/**.js --detectOpenHandles --forceExit --coverage src"
+    "test": "date && jest --collectCoverageFrom=src/**.js --detectOpenHandles --forceExit --coverage src",
+    "lint": "eslint \"**/*.js\" --fix --max-warnings=0"
   },
   "dependencies": {
     "express": "4.16.4",
     "jsdom": "13.0.0",
-    "mariadb": "2.0.0-alpha"
+    "mariadb": "2.0.0-alpha",
+    "nodemon": "1.18.6"
   },
   "devDependencies": {
     "eslint": "5.8.0",
     "eslint-config-google": "0.11.0",
-    "nodemon": "1.18.6",
     "husky": "1.1.3",
     "jest": "23.6.0",
     "jest-cli": "23.6.0",
@@ -31,6 +32,8 @@
     "testPathIgnorePatterns": [
       "node_modules/"
     ],
-    "coverageReporters": ["lcov"]
+    "coverageReporters": [
+      "lcov"
+    ]
   }
 }

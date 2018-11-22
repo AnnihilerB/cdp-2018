@@ -48,8 +48,8 @@ app.get('/project', function(req, res) {
   JSDOM.fromFile('src/public/form.html').then((dom) => {
     const form = dom.window.document.querySelector('form');
     const h2 = dom.window.document.querySelector('h2');
-    h2.innerHTML = "Créer mon projet"
-    form.action = "/project/add";
+    h2.innerHTML = 'Créer mon projet';
+    form.action = '/project/add';
     form.innerHTML = renderer.renderProjectForm();
     res.send(dom.serialize());
   });
@@ -66,8 +66,8 @@ app.get('/sprint', function(req, res) {
   JSDOM.fromFile('src/public/form.html').then((dom) => {
     const form = dom.window.document.querySelector('form');
     const h2 = dom.window.document.querySelector('h2');
-    h2.innerHTML = "Créer mon sprint"
-    form.action = "/sprint/add";
+    h2.innerHTML = 'Créer mon sprint';
+    form.action = '/sprint/add';
     form.innerHTML = renderer.renderSprintForm();
     res.send(dom.serialize());
   });
