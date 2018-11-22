@@ -8,6 +8,7 @@ const sprintDAO = require('./sprintDAO');
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 const renderer = require('./renderer');
+const assert = require('assert');
 
 // Setting up the app
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,17 +33,15 @@ app.post('/user/create', function(req, res) {
   const psw1 = req.body.psw1;
   const psw2 = req.body.psw2;
   const mail = req.body.email;
-  if (userDAO.verifyPassword(psw1, psw2)) {
-    userDAO.createUser(username, psw1, mail);
-    userDAO.logUser(username, psw1).then((connected) => {
-      if (connected) {
-        res.redirect('/home');
-      }
-    });
-  } else {
-    res.send('<h1>Incorrect Password</h1>');
-  }
+  assert.strictEqual(psw1, psw2);
+  userDAO.createUser(username, psw1, mail);
+  userDAO.logUser(username, psw1).then((connected) => {
+    if (connected) {
+      res.redirect('/home');
+    }
+  });
 });
+
 
 app.get('/project', function(req, res) {
   JSDOM.fromFile('src/public/form.html').then((dom) => {

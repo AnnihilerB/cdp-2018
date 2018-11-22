@@ -36,21 +36,25 @@ function verifyCredentials(rows, name, pass) {
   }
   return false;
 }
+
 /**
- * Verify that the User Password is good
- * @param {string} psw1 The first Password entered
- * @param {string} psw2 The second Password entered
- * @return {boolean} true if psw1 and psw2 are the same
+ * Verify that the account name doesn't exists in the Data Base
+ * @param {string} accountName name of the account te user wants
+ * @return {boolean}
  */
-function verifyPassword(psw1, psw2) {
-  if (psw1 == psw2) {
+async function userAlreadyExists(accountName) {
+  const conn = await pool.getConnection();
+  const rows = await conn.query(`SELECT username FROM users where username=(?)`, accountName);
+  if (rows[0].username !== undefined) {
     return true;
+  } else {
+    return false;
   }
-  return false;
 }
+
 module.exports = {
+  userAlreadyExists,
   createUser: createUser,
   logUser: logUser,
-  verifyPassword: verifyPassword,
   verifyCredentials: verifyCredentials,
 };
