@@ -1,0 +1,35 @@
+
+language: node_js
+services:
+- docker
+node_js:
+- '8'
+install:
+- docker-compose -f docker-compose-dev.yml up --build -d
+- npm install
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
+script:
+- npm test
+after_script:
+- ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT
+
+before_deploy:
+- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
+- git config --local user.name "Ali"
+- git config --local user.email "cherifiali@outlook.fr"
+- docker build . -t "annihilerb/cdp:$TRAVIS_TAG"
+- docker tag "annihilerb/cdp:$TRAVIS_TAG" "annihilerb/cdp:latest"
+- docker push annihilerb/cdp:$TRAVIS_TAG
+- docker push annihilerb/cdp:latest
+
+deploy:
+  provider: script
+  script: bash ./scripts/deploy.sh
+  on:
+    tags: true
+    branches:
+      only:
+        - /v\d+\.\d+/
