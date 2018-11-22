@@ -10,11 +10,7 @@ describe('Login user', () => {
     await page.keyboard.type('admin');
     await page.click('input#psw');
     await page.keyboard.type('pass');
-    await Promise.all([
-      page.click('button#sub'),
-      page.waitForNavigation({waitUntil: 'load'}),
-      page.waitForNavigation({waitUntil: 'networkidle0'}),
-    ]);
+    await waitForPage('button#sub');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/home');
   });
@@ -26,18 +22,10 @@ describe('Project creation successful', () => {
   });
 
   it('should log the user correctly', async () => {
-    await Promise.all([
-      page.click('a#createProject'),
-      page.waitForNavigation({waitUntil: 'load'}),
-      page.waitForNavigation({waitUntil: 'networkidle0'}),
-    ]);
+    await waitForPage('a#createProject');
     await page.click('input#name');
     await page.keyboard.type('Mon projet');
-    await Promise.all([
-      page.click('button#sendProject'),
-      page.waitForNavigation({waitUntil: 'load'}),
-      page.waitForNavigation({waitUntil: 'networkidle0'}),
-    ]);
+    await waitForPage('button#sendProject');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/project/add');
   });
@@ -49,21 +37,26 @@ describe('Sprint creation successful', () => {
   });
 
   it('should log the user correctly', async () => {
-    await Promise.all([
-      page.click('a#createSprint'),
-      page.waitForNavigation({waitUntil: 'load'}),
-      page.waitForNavigation({waitUntil: 'networkidle0'}),
-    ]);
+    await waitForPage('a#createSprint');
     await page.click('input#name');
     await page.keyboard.type('Mon sprint');
     await page.click('input#projectId');
     await page.keyboard.type('1');
-    await Promise.all([
-      page.click('button#sendSprint'),
-      page.waitForNavigation({waitUntil: 'load'}),
-      page.waitForNavigation({waitUntil: 'networkidle0'}),
-    ]);
+    await waitForPage('button#sendSprint');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/sprint/add');
   });
 });
+
+/**
+ * Click on a page element that redirects and wait for the
+ * redirection to be completed.
+ * @param {string} domElement
+ */
+async function waitForPage(domElement) {
+  return Promise.all([
+    page.click(domElement),
+    page.waitForNavigation({waitUntil: 'load'}),
+    page.waitForNavigation({waitUntil: 'networkidle0'}),
+  ]);
+}
