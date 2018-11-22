@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Starting the database 1`] = `
+Pool {
+  "activatePool": [Function],
+  "activeConnections": [Function],
+  "end": [Function],
+  "getConnection": [Function],
+  "idleConnections": [Function],
+  "query": [Function],
+  "taskQueueSize": [Function],
+  "totalConnections": [Function],
+}
+`;
