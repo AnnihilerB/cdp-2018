@@ -44,16 +44,18 @@ function verifyCredentials(rows, name, pass) {
  */
 async function userAlreadyExists(accountName) {
   const conn = await pool.getConnection();
-  const rows = await conn.query(`SELECT username FROM users where username=(?)`, accountName);
-  if (rows[0].username !== undefined) {
-    return true;
-  } else {
+  const rows = await conn.query(`SELECT username FROM users where username = '${accountName}'`, (err, rows, meta) => {
+    if (err) throw err;
+    console.log(rows);
+  });
+  if (rows[0].username !== accountName) {
     return false;
   }
+  return true;
 }
 
 module.exports = {
-  userAlreadyExists,
+  userAlreadyExists: userAlreadyExists,
   createUser: createUser,
   logUser: logUser,
   verifyCredentials: verifyCredentials,

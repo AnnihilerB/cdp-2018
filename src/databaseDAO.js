@@ -4,7 +4,7 @@ const pool = mariadb.createPool({
   user: 'root',
   password: 'example',
   database: 'cdp',
-  connectionLimit: 5});
+  connectionLimit: 100});
 
 module.exports = {
   pool: pool,
