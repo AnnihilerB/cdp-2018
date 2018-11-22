@@ -29,6 +29,7 @@ deploy:
   provider: script
   script: bash ./scripts/deploy.sh
   on:
+    tags: true
     branches:
       only:
         - /v\d+\.\d+/
