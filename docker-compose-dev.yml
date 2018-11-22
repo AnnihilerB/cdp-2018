@@ -10,6 +10,8 @@ services:
       - db
     ports:
       - 3000:3000
+    volumes:
+      - ./src:/app/src
 
   db:
     container_name: mariadb

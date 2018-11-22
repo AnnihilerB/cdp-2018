@@ -48,9 +48,8 @@ app.post('/user/create', function(req, res) {
 
 app.get('/project', function(req, res) {
   JSDOM.fromFile('src/public/form.html').then((dom) => {
+    changeHeader(dom, 'Créer mon projet');
     const form = dom.window.document.querySelector('form');
-    const h2 = dom.window.document.querySelector('h2');
-    h2.innerHTML = 'Créer mon projet';
     form.action = '/project/add';
     form.innerHTML = renderer.renderProjectForm();
     res.send(dom.serialize());
@@ -66,9 +65,8 @@ app.post('/project/add', function(req, res) {
 
 app.get('/sprint', function(req, res) {
   JSDOM.fromFile('src/public/form.html').then((dom) => {
+    changeHeader(dom, 'Créer mon sprint');
     const form = dom.window.document.querySelector('form');
-    const h2 = dom.window.document.querySelector('h2');
-    h2.innerHTML = 'Créer mon sprint';
     form.action = '/sprint/add';
     form.innerHTML = renderer.renderSprintForm();
     res.send(dom.serialize());
@@ -94,3 +92,13 @@ app.get('/create_account', function(red, res) {
 app.listen(3000, function() {
   console.log('Example app listening on port 3000!');
 });
+
+/**
+ * Change the text of the h2 element in the DOM.
+ * @param {object} dom
+ * @param {string} message
+ */
+function changeHeader(dom, message) {
+  const h2 = dom.window.document.querySelector('h2');
+  h2.innerHTML = message;
+}
