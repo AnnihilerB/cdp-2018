@@ -62,8 +62,9 @@ app.get('/project', function(req, res) {
 app.post('/project/add', function(req, res) {
   const projectName = req.body.project;
   const sprintDuration = req.body.sprint_duration;
-  projectDAO.createProject(projectName, sprintDuration);
-  res.send('<p>Project Created</p>');
+  projectDAO.createProject(projectName, sprintDuration).then(()=>{
+    res.send('<p>Project Created</p>');
+  });
 });
 
 app.get('/sprint', function(req, res) {
@@ -80,8 +81,13 @@ app.post('/sprint/add', function(req, res) {
   const sprintName = req.body.sprint;
   const sprintState = req.body.sprint_state;
   const projectID = req.body.sprint_projectid;
-  sprintDAO.createSprint(sprintName, sprintState, projectID);
-  res.send('<p>Sprint Created</p>');
+  sprintDAO.createSprint(sprintName, sprintState, projectID).then((isCreated)=>{
+    if (isCreated) {
+      res.send('<p>Sprint Created</p>');
+    } else {
+      res.send("An error has occured");
+    }
+  });
 });
 
 app.get('/home', function(req, res) {

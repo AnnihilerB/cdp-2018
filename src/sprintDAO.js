@@ -10,7 +10,12 @@ const columns = 'name_sprint, state_sprint, id_project';
  */
 async function createSprint(nameSprint, stateSprint, idProject) {
   const conn = await pool.getConnection();
+  const rows = await conn.query(`SELECT * FROM projects WHERE id_project="${idProject}"`); 
+  if (rows[0] === undefined) {
+    return false;
+  }
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameSprint}', '${stateSprint}', '${idProject}');`);
+  return true;
 };
 
 module.exports = {
