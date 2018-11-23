@@ -4,6 +4,9 @@
 Sprint 1 : Intégrateur -> ALI
 Sprint 2 : Intégrateur -> NICOLAS
 Sprint 3 : Intégrateur -> ZAKARIA
+
+
+
 | ID | Description                                                                                                                                                                                                                  | Difficulté | Urgence | Planification | ETAT |
 |----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|---------|---------------|------|
 | 1  | "En tant qu'utilisateur, je souhaite pouvoir m'inscrire (e-mail, mot de passe) afin d'accéder aux fonctionnalités de l'application"                                                                                           | 3          |   MOYENNE     | sprint 2       | DONE |
