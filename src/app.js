@@ -34,14 +34,16 @@ app.post('/user/create', function(req, res) {
   const psw2 = req.body.psw2;
   const mail = req.body.email;
   assert.strictEqual(psw1, psw2);
-  if (!userDAO.userAlreadyExists(username)) {
-    userDAO.createUser(username, psw1, mail);
-  }
-  userDAO.logUser(username, psw1).then((connected) => {
-    if (connected) {
-      res.redirect('/home');
+  userDAO.userAlreadyExists(username).then((alreadyExists) => {
+    if (!alreadyExists) {
+      userDAO.createUser(username, psw1, mail).then(() => {
+        userDAO.logUser(username, psw1).then((connected) => {
+          res.redirect('/home');
+        });
+      });
+    } else {
+      res.send('<p>User already exists</p>');
     }
-    res.send('aieu');
   });
 });
 
