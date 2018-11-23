@@ -22,8 +22,6 @@ services:
       MYSQL_DATABASE: cdp
     volumes:
       - ./resources/cdp.sql:/docker-entrypoint-initdb.d/cdp.sql
-    ports:
-      - 3306:3306
 
   adminer:
     container_name: adminersql
