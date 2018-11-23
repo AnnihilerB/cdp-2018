@@ -85,7 +85,7 @@ app.post('/sprint/add', function(req, res) {
     if (isCreated) {
       res.send('<p>Sprint Created</p>');
     } else {
-      res.send("An error has occured");
+      res.send('An error has occured');
     }
   });
 });
