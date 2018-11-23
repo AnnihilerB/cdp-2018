@@ -1,7 +1,9 @@
 [![Build Status](https://travis-ci.com/acherifi/cdp-2018.svg?branch=master)](https://travis-ci.com/acherifi/cdp-2018)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b42b12d97bddeec524f2/maintainability)](https://codeclimate.com/github/acherifi/cdp-2018/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b42b12d97bddeec524f2/test_coverage)](https://codeclimate.com/github/acherifi/cdp-2018/test_coverage)
-
+Sprint 1 : Intégrateur -> ALI
+Sprint 2 : Intégrateur -> NICOLAS
+Sprint 3 : Intégrateur -> ZAKARIA
 | ID | Description                                                                                                                                                                                                                  | Difficulté | Urgence | Planification | ETAT |
 |----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|---------|---------------|------|
 | 1  | "En tant qu'utilisateur, je souhaite pouvoir m'inscrire (e-mail, mot de passe) afin d'accéder aux fonctionnalités de l'application"                                                                                           | 3          |   MOYENNE     | sprint 2       | DONE |
