@@ -24,7 +24,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "eslint \"**/*.js\" --fix --max-warnings=0"
+      "pre-commit": "eslint \"**/*.js\" --fix --max-warnings=0"
     }
   },
   "jest": {
