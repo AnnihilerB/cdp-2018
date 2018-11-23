@@ -18,11 +18,4 @@ services:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: cdp
     volumes:
-      - ./cdp.sql:/docker-entrypoint-initdb.d/cdp.sql
-
-  adminer:
-    container_name: adminersql
-    image: adminer
-    restart: always
-    ports:
-      - 8081:8080
+      - ./resources/cdp.sql:/docker-entrypoint-initdb.d/cdp.sql

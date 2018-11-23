@@ -2,9 +2,9 @@ FROM node:8
 
 WORKDIR /app
 
-COPY src src
+COPY src/ src/
 COPY package.json .
 
-RUN npm install
+RUN npm install --production
 
-CMD ["node", "src/app.js"] 
+CMD ["npm", "start"] 

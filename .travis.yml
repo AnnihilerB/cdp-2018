@@ -1,13 +1,23 @@
+
 language: node_js
+notifications:
+  slack: ub-cdp-2018:tlGf8J1sCs4WFLOf60GVfKJU
 services:
 - docker
-branches:
-  only:
-  - /v\d+\.\d+/
 node_js:
 - '8'
 install:
+- docker-compose -f docker-compose-dev.yml up --build -d
 - npm install
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
+script:
+- npm test
+after_script:
+- ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT
+
 before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
 - git config --local user.name "Ali"
@@ -16,15 +26,12 @@ before_deploy:
 - docker tag "annihilerb/cdp:$TRAVIS_TAG" "annihilerb/cdp:latest"
 - docker push annihilerb/cdp:$TRAVIS_TAG
 - docker push annihilerb/cdp:latest
-- npm run sonar-scanner -- -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=AnnihilerB_cdp-2018 -Dsonar.organization=annihilerb-github -Dsonar.sources=src/ -Dsonar.plsql.version=5.6 -Dsonar.login="$SONAR_TOKEN"
-deploy:
-  provider: releases
-  api_key:
-    secure: TpdfZlveP7Dcv0D6xVVSO3SPVBOEgu2yvzzMdkLX4kS04jeK2w2IsFtzrddXZ0jCJBksSFtQWpde4a24fDR0G9/zsjy32Ph1UJ3H5BrIBnd3YVUz0nISo5l+SiEy/esa3BHAsl+f6tPi5ZvQaaU30/n7ERUJ1fQwcdbRxSr0k/OYLYzR0Q+Gv4onhupXbd9ORwZNQ+M6wvAf6RxRYOfhhwj74u2+yVOqSSmZnzq1hzUbBoYZyTunaSoXrcyTMoy2drMdS5sJoHht/UNUpSTn6Gh8Zf/FhvvRgYDqMqXpKBu0GVgWGaADllHtPREuPU56vKAhgUXBQ1kRZZRsYGfanCKJyLyGUc+mZeDBfh3JwQ5a56A/nO8Zo27lMEvVyR2qrQdF6rXAapOekzQCsALh0sAy5jTWqXP37Zon1xVyTur+420To1ImDYUSUVw3fmtQEb2B+9wucD5FdlKyV0A5K8+EIreMR+JQIK1tnCbb+Qsz9bKWYUC9DFs1lGzUfRlzXYuPOpvmgZtYyNFzZjsXr5ymgeWX+ITASmkvDCP88RKt+zefYxm76eQPsxWbZq/zzhBd10r5N5xgrqZgTDu1HBT/T9BG6fci4D1TGRzwwY3M3q/mMyWk+jgCCVLWP9bgcQ7lgaa/4VpbSTMD1u/E6PkKRhpPqPEfqRtNHQwkcj0=
-  file: 
-  - "docker-compose.yml"
-  - "resources/cdp.sql"
-  on:
-    repo: AnnihilerB/cdp-2018
-    tags: true
 
+deploy:
+  provider: script
+  script: bash ./scripts/deploy.sh
+  on:
+    tags: true
+    branches:
+      only:
+        - /v\d+\.\d+/
