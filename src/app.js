@@ -23,8 +23,9 @@ app.post('/user/login', function(req, res) {
   userDAO.logUser(username, pass).then((connected) => {
     if (connected) {
       res.redirect('/home');
+    } else {
+      res.send('<h1>Incorrect credentials</h1>');
     }
-    res.send('<h1>Incorrect credentials</h1>');
   });
 });
 
