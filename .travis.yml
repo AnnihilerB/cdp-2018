@@ -6,17 +6,22 @@ services:
 - docker
 node_js:
 - '8'
+addons:
+  sonarcloud:
+    organization: "acherifi-github" # the key of the org you chose at step #3
+    token:
+      secure: "$SONAR_TOKEN" # encrypted value of your token
+
 install:
 - docker-compose -f docker-compose-dev.yml up --build -d
 - npm install
-before_script:
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-- chmod +x ./cc-test-reporter
-- ./cc-test-reporter before-build
-script:
-- npm test
-after_script:
-- ./cc-test-reporter after-build -t lcov --debug --exit-code $TRAVIS_TEST_RESULT
+
+jobs:
+  include:
+    - stage: test
+      script: npm test
+      script: sonar-scanner
+    - stage: deploy
 
 before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
