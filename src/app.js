@@ -49,17 +49,36 @@ app.post('/user/create', function(req, res) {
 });
 
 
-app.get('/project', function(req, res) {
+app.get('/projects', function(req, res) {
+  JSDOM.fromFile('src/public/category.html').then((dom) => {
+    const doc = dom.window.document;
+    projectDAO.getProjects().then((projects) => {
+      if (projects === undefined) {
+        res.send('<p>No projects yet.</p>');
+      } else {
+        const list = doc.querySelector('.list-group');
+        list.innerHTML = renderer.renderProjectList(projects);
+        doc.querySelector('#creationButton').href = '/projects/add';
+        doc.querySelector('.btn').innerHTML = 'Créer projet';
+        res.send(dom.serialize());
+      }
+    });
+  });
+});
+
+app.get('/projects/add', function(req, res) {
   JSDOM.fromFile('src/public/form.html').then((dom) => {
-    changeHeader(dom, 'Créer mon projet');
     const form = dom.window.document.querySelector('form');
-    form.action = '/project/add';
+    form.method = 'POST';
+    form.action = '/projects/add';
     form.innerHTML = renderer.renderProjectForm();
+    dom.window.document.querySelector('.navbar-brand').innerHTML = 'Créer un projet';
     res.send(dom.serialize());
   });
 });
 
-app.post('/project/add', function(req, res) {
+app.post('/projects/add', function(req, res) {
+  console.log(req.body);
   const projectName = req.body.project;
   const sprintDuration = req.body.sprint_duration;
   projectDAO.createProject(projectName, sprintDuration).then(()=>{
@@ -69,10 +88,10 @@ app.post('/project/add', function(req, res) {
 
 app.get('/sprint', function(req, res) {
   JSDOM.fromFile('src/public/form.html').then((dom) => {
-    changeHeader(dom, 'Créer mon sprint');
     const form = dom.window.document.querySelector('form');
     form.action = '/sprint/add';
     form.innerHTML = renderer.renderSprintForm();
+    dom.window.document.querySelector('.navbar-brand').innerHTML = 'Créer un sprint';
     res.send(dom.serialize());
   });
 });
@@ -101,13 +120,3 @@ app.get('/create_account', function(red, res) {
 app.listen(3000, function() {
   console.log('Example app listening on port 3000!');
 });
-
-/**
- * Change the text of the h2 element in the DOM.
- * @param {object} dom
- * @param {string} message
- */
-function changeHeader(dom, message) {
-  const h2 = dom.window.document.querySelector('h2');
-  h2.innerHTML = message;
-}

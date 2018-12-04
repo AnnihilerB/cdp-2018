@@ -12,6 +12,17 @@ async function createProject(name, sprintDuration) {
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${name}', NULL, '${sprintDuration}', NULL);`);
 };
 
+/**
+ * Get the list of projects.
+ * @return{Object[]} rows returned by the database.
+ */
+async function getProjects() {
+  const conn = await pool.getConnection();
+  const rows = await conn.query(`SELECT * FROM ${table}`);
+  return rows;
+}
+
 module.exports = {
   createProject: createProject,
+  getProjects: getProjects,
 };
