@@ -12,15 +12,16 @@ addons:
     token:
       secure: "$SONAR_TOKEN" # encrypted value of your token
 
-jobs:
-  include:
-    - stage : install
-      script: docker-compose -f docker-compose-dev.yml up --build -d && npm install
-    - stage: test
-      script: npm test && npm run teste2e
-    - 
-      script: sonar-scanner
-    - stage: deploy
+install:
+  - docker-compose -f docker-compose-dev.yml up --build -d
+  - npm install
+
+script:
+  - npm test 
+  - npm run teste2e
+
+after_script:
+  - sonar-scanner
 
 before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
