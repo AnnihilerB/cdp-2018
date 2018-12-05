@@ -87,13 +87,14 @@ describe('Sprint creation successful', () => {
 
 describe('Task adding to a sprint successful', () => {
   beforeAll(async () => {
+    await prep();
     await page.goto('http://localhost:3000/home');
   });
 
   it('should log the user correctly', async () => {
     await waitForPage('a#addTaskToSprint');
-    await page.select('#nameS','1');
-    await page.select('#nameT','1');
+    await page.select('#nameS', '1');
+    await page.select('#nameT', '1');
     await waitForPage('button#sendTaskToSprint');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/sprint/TaskToSprint/add');

@@ -63,10 +63,11 @@ function renderTaskToSprintForm() {
 
   return sprintName+input+taskName+inputTaskName+button;
 }
-/*
- * Render in HTML the prject list
- * @return {string} the HTML for the project list.
- * @param {String[]} projects to be rendered
+
+/**
+ * Renders the list of projects
+ * @return {string} the HTML of a projects list.
+ * @param {string} projects list of projects.
  */
 function renderProjectList(projects) {
   let returnHTML='';

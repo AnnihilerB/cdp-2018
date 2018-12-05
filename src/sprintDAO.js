@@ -19,6 +19,10 @@ async function createSprint(nameSprint, stateSprint, idProject) {
   return true;
 };
 
+/**
+ * Retrieve all Sprints from database
+ * @return {Array} Sprint's list
+ */
 async function getSprints() {
   const conn = await pool.getConnection();
   const rows = await conn.query(`Select * FROM sprints;`);

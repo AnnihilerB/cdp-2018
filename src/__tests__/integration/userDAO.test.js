@@ -13,7 +13,9 @@ beforeAll(async () => {
     connectionLimit: 5});
   userDAO.setPool(testpool);
   const conn = await testpool.getConnection();
+  await conn.query(`DELETE FROM tasks`);
   await conn.query('DELETE FROM sprints');
+  await conn.query(`DELETE FROM issues`);
   await conn.query(`DELETE FROM projects`);
   await conn.query(`DELETE FROM users WHERE username <>'admin';`);
   conn.end();

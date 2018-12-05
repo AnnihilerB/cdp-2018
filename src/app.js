@@ -131,27 +131,27 @@ app.post('/issues/add', async function(req, res) {
 });
 
 app.get('/sprint/TaskToSprint', async function(req, res) {
-    const dom = await JSDOM.fromFile('src/public/form.html');
-    const form = dom.window.document.querySelector('form');
-    form.action = '/sprint/TaskToSprint/add';
-    form.innerHTML = renderer.renderTaskToSprintForm();
-    const sprintSelect = dom.window.document.getElementById("nameS");
-    const taskSelect = dom.window.document.getElementById("nameT");
-    var sprints = await sprintDAO.getSprints();
-    sprints.forEach(element => {
-        var option = dom.window.document.createElement("option");
-        option.text = element.name_sprint;
-        option.value = element.id_sprint;
-        sprintSelect.add(option);
-    });
-    var tasks = await taskDAO.getTasks();
-    tasks.forEach(element => {
-        var option = dom.window.document.createElement("option");
-        option.text = element.name_task;
-        option.value = element.id_task;
-        taskSelect.add(option);
-    });
-    res.send(dom.serialize());
+  const dom = await JSDOM.fromFile('src/public/form.html');
+  const form = dom.window.document.querySelector('form');
+  form.action = '/sprint/TaskToSprint/add';
+  form.innerHTML = renderer.renderTaskToSprintForm();
+  const sprintSelect = dom.window.document.getElementById('nameS');
+  const taskSelect = dom.window.document.getElementById('nameT');
+  const sprints = await sprintDAO.getSprints();
+  sprints.forEach((element) => {
+    const option = dom.window.document.createElement('option');
+    option.text = element.name_sprint;
+    option.value = element.id_sprint;
+    sprintSelect.add(option);
+  });
+  const tasks = await taskDAO.getTasks();
+  tasks.forEach((element) => {
+    const option = dom.window.document.createElement('option');
+    option.text = element.name_task;
+    option.value = element.id_task;
+    taskSelect.add(option);
+  });
+  res.send(dom.serialize());
 });
 
 app.post('/sprint/TaskToSprint/add', function(req, res) {

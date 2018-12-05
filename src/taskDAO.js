@@ -18,13 +18,21 @@ async function createTask(nameSprint, stateSprint, idProject) {
   return true;
 };
 
-async function addTaskToSprint(id_task, id_sprint) {
+/**
+ * Add a task to a sprint
+ * @param {string} idTask Names of the sprint.
+ * @param {string} idSprint Sprint state.
+ */
+async function addTaskToSprint(idTask, idSprint) {
   const conn = await pool.getConnection();
 
-  await conn.query(`UPDATE tasks SET id_sprint = '${id_sprint}' WHERE id_task = '${id_task}';`);
+  await conn.query(`UPDATE tasks SET id_sprint = '${idSprint}' WHERE id_task = '${idTask}';`);
   return true;
 };
 
+/**
+ * Get all tasks
+ */
 async function getTasks() {
   const conn = await pool.getConnection();
   const rows = await conn.query(`Select * FROM tasks;`);
