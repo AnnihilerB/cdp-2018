@@ -14,12 +14,11 @@ addons:
 
 jobs:
   include:
+    - stage : install
+      script: docker-compose -f docker-compose-dev.yml up --build -d && npm install
     - stage: test
-      script: docker-compose -f docker-compose-dev.yml up --build -d
-      script: npm install
-      script: npm test
-      script: npm run teste2e
-    - stage: sonar
+      script: npm test && npm run teste2e
+    - 
       script: sonar-scanner
     - stage: deploy
 
