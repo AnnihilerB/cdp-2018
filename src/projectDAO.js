@@ -10,8 +10,21 @@ const columns = 'name, description, sprint_duration, deposit_url';
 async function createProject(name, sprintDuration) {
   const conn = await pool.getConnection();
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${name}', NULL, '${sprintDuration}', NULL);`);
+  conn.end();
 };
+
+/**
+ * Get the list of projects.
+ * @return{Object[]} rows returned by the database.
+ */
+async function getProjects() {
+  const conn = await pool.getConnection();
+  const rows = await conn.query(`SELECT * FROM ${table}`);
+  conn.end();
+  return rows;
+}
 
 module.exports = {
   createProject: createProject,
+  getProjects: getProjects,
 };
