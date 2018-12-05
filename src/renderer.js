@@ -10,7 +10,7 @@ function renderIssueForm() {
   issuesForm = issuesForm.concat(createFormGroup('Issue difficulty', 'difficulty', 'issue_difficulty'));
   issuesForm = issuesForm.concat(createFormGroup('Issue priority', 'priority', 'issue_priority'));
   issuesForm = issuesForm.concat(createFormGroup('Id project', 'id', 'id_project'));
-  issuesForm = issuesForm.concat(createFormButton('sendIssue', 'Créér'));
+  issuesForm = issuesForm.concat(createFormButton('sendIssue', 'Créer'));
   return issuesForm;
 }
 
@@ -25,7 +25,7 @@ function renderProjectForm() {
   projectForm = projectForm.concat(createFormGroup('Project name', 'name', 'project'));
   projectForm = projectForm.concat(createFormRadio('2 weeks sprint duration', 'weeks2', 'sprint_duration', '2'));
   projectForm = projectForm.concat(createFormRadio('3 weeks sprint duration', 'weeks3', 'sprint_duration', '3'));
-  projectForm = projectForm.concat(createFormButton('sendProject', 'Créér'));
+  projectForm = projectForm.concat(createFormButton('sendProject', 'Créer'));
   projectForm = projectForm.concat(createButton('/projects', 'Annuler'));
   return projectForm;
 }

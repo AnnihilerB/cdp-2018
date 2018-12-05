@@ -5,6 +5,7 @@ const app = express();
 const userDAO = require('./userDAO');
 const projectDAO = require('./projectDAO');
 const sprintDAO = require('./sprintDAO');
+const issueDAO = require('./issueDAO');
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 const renderer = require('./renderer');
