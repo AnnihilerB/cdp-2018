@@ -21,7 +21,7 @@ services:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: cdp
     ports:
-      - 3306:3306
+      - 3001:3306
     volumes:
       - ./resources/cdp.sql:/docker-entrypoint-initdb.d/cdp.sql
 

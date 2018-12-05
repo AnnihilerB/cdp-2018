@@ -6,6 +6,7 @@ beforeAll(async () => {
   jest.setTimeout(10000);
   testpool = mariadb.createPool({
     host: 'localhost',
+    port: '3001',
     user: 'root',
     password: 'example',
     database: 'cdp',
