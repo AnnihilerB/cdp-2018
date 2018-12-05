@@ -66,6 +66,7 @@ app.get('/projects', async function(req, res) {
   }
 });
 
+
 app.get('/projects/add', async function(req, res) {
   const dom = await JSDOM.fromFile('src/public/form.html');
   const form = dom.window.document.querySelector('form');
@@ -99,6 +100,29 @@ app.post('/sprint/add', async function(req, res) {
   const isCreated = await sprintDAO.createSprint(sprintName, sprintState, projectID);
   if (isCreated) {
     res.send('<p>Sprint Created</p>');
+  } else {
+    res.send('An error has occured');
+  }
+});
+
+app.get('/issues', async function(req, res) {
+  const dom = await JSDOM.fromFile('src/public/form.html');
+  const form = dom.window.document.querySelector('form');
+  form.action = '/issues/add';
+  form.innerHTML = renderer.renderIssueForm();
+  dom.window.document.querySelector('.navbar-brand').innerHTML = 'Créer une issue';
+  res.send(dom.serialize());
+});
+
+app.post('/issues/add', async function(req, res) {
+  const issueDesc = req.body.issue_description;
+  const issueState = req.body.issue_state;
+  const issueDif = req.body.issue_difficulty;
+  const issuePrio = req.body.issue_priority;
+  const idProject = req.body.id_project;
+  const isCreated = await issueDAO.createIssue(issueDesc, issueState, issueDif, issuePrio, idProject);
+  if (isCreated) {
+    res.send('<p>Issue Created</p>');
   } else {
     res.send('An error has occured');
   }

@@ -1,5 +1,21 @@
 /**
  * Render the fields to add int the DOM for creating
+ * the issue form
+ * @return {string} String representation of the form.
+ */
+function renderIssueForm() {
+  let issuesForm = '';
+  issuesForm = issuesForm.concat(createFormGroup('Issue description', 'description', 'issue_description'));
+  issuesForm = issuesForm.concat(createFormGroup('State Issue', 'state', 'issue_state'));
+  issuesForm = issuesForm.concat(createFormGroup('Issue difficulty', 'difficulty', 'issue_difficulty'));
+  issuesForm = issuesForm.concat(createFormGroup('Issue priority', 'priority', 'issue_priority'));
+  issuesForm = issuesForm.concat(createFormGroup('Id project', 'id', 'id_project'));
+  issuesForm = issuesForm.concat(createFormButton('sendIssue', 'Créér'));
+  return issuesForm;
+}
+
+/**
+ * Render the fields to add int the DOM for creating
  * the project form
  * @return {string} String representation of the form.
  */
@@ -100,6 +116,7 @@ function createButton(action, buttonText) {
 }
 
 module.exports = {
+  renderIssueForm: renderIssueForm,
   renderProjectForm: renderProjectForm,
   renderSprintForm: renderSprintForm,
   renderProjectList: renderProjectList,
