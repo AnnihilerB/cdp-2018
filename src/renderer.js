@@ -7,8 +7,8 @@ function renderProjectForm() {
   let projectForm = '';
 
   projectForm = projectForm.concat(createFormGroup('Project name', 'name', 'project'));
-  projectForm = projectForm.concat(createFormRadio('2 weeks sprint duration', '2weeks', 'sprint_duration', '2'));
-  projectForm = projectForm.concat(createFormRadio('3 weeks sprint duration', '3weeks', 'sprint_duration', '3'));
+  projectForm = projectForm.concat(createFormRadio('2 weeks sprint duration', 'weeks2', 'sprint_duration', '2'));
+  projectForm = projectForm.concat(createFormRadio('3 weeks sprint duration', 'weeks3', 'sprint_duration', '3'));
   projectForm = projectForm.concat(createFormButton('sendProject', 'Créér'));
   projectForm = projectForm.concat(createButton('/projects', 'Annuler'));
   return projectForm;

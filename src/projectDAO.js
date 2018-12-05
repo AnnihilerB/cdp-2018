@@ -10,6 +10,7 @@ const columns = 'name, description, sprint_duration, deposit_url';
 async function createProject(name, sprintDuration) {
   const conn = await pool.getConnection();
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${name}', NULL, '${sprintDuration}', NULL);`);
+  conn.end();
 };
 
 /**
@@ -19,6 +20,7 @@ async function createProject(name, sprintDuration) {
 async function getProjects() {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT * FROM ${table}`);
+  conn.end();
   return rows;
 }
 

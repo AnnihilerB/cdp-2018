@@ -1,4 +1,4 @@
-const pool = require('./databaseDAO').pool;
+let pool = require('./databaseDAO').pool;
 
 /**
  * Create a new user.
@@ -8,7 +8,8 @@ const pool = require('./databaseDAO').pool;
  */
 async function createUser(name, psw, mail) {
   const conn = await pool.getConnection();
-  conn.query(`INSERT INTO users(username, password, email) VALUE ('${name}', '${psw}', '${mail}')`);
+  await conn.query(`INSERT INTO users(username, password, email) VALUE ('${name}', '${psw}', '${mail}')`);
+  conn.end();
 }
 /**
  * Log the user into the app
@@ -19,6 +20,7 @@ async function createUser(name, psw, mail) {
 async function logUser(name, pass) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT * FROM users where username='${name}'`);
+  conn.end();
   return verifyCredentials(rows, name, pass);
 };
 
@@ -39,15 +41,26 @@ function verifyCredentials(rows, name, pass) {
 /**
  * Verify that the account name doesn't exists in the Data Base
  * @param {string} accountName name of the account te user wants
- * @return {boolean}
+ * @return {boolean} true if the user exists false otherwise.
  */
 async function userAlreadyExists(accountName) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT username FROM users where username = '${accountName}'`);
+  conn.end();
+  console.log(rows[0] === undefined);
   if (rows[0] === undefined) {
     return false;
   }
   return true;
+}
+
+/**
+ * Overrides the default pool.
+ * Used for testing puposes
+ * @param {Pool} newpool the new pool to be used
+ */
+function setPool(newpool) {
+  pool = newpool;
 }
 
 module.exports = {
@@ -55,4 +68,5 @@ module.exports = {
   createUser: createUser,
   logUser: logUser,
   verifyCredentials: verifyCredentials,
+  setPool: setPool,
 };
