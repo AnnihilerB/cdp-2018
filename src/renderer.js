@@ -33,7 +33,23 @@ function renderSprintForm() {
         +sprintProjectID+inputProjectID+button;
 }
 
+/**
+ * Render the fields to add int the DOM for creating
+ * the adding a task to a sprint form
+ * @return {string} String representation of the form.
+ */
+function renderTaskToSprintForm() {
+  const sprintName = 'Sprint name: <br>';
+  const input = '<select id="nameS" name="sprint" size="2"></select><br>';
+  const taskName = 'Task Name: <br>';
+  const inputTaskName = '<select id="nameT" name="task" size="2"></select><br>';
+  const button = '<button id="sendTaskToSprint" type="submit">Valider</button>';
+
+  return sprintName+input+taskName+inputTaskName+button;
+}
+
 module.exports = {
   renderProjectForm: renderProjectForm,
   renderSprintForm: renderSprintForm,
+  renderTaskToSprintForm: renderTaskToSprintForm,
 };

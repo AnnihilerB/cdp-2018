@@ -1,6 +1,6 @@
 const pool = require('./databaseDAO').pool;
-const table = 'sprints';
-const columns = 'name_sprint, state_sprint, id_project';
+const table = 'tasks';
+const columns = 'name_task, state_task, id, id_issue, id_sprint';
 
 /**
  * Register a project into the database.
@@ -8,7 +8,7 @@ const columns = 'name_sprint, state_sprint, id_project';
  * @param {string} stateSprint Sprint state.
  * @param {int} idProject sprint's project id.
  */
-async function createSprint(nameSprint, stateSprint, idProject) {
+async function createTask(nameSprint, stateSprint, idProject) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT * FROM projects WHERE id_project="${idProject}"`);
   if (rows[0] === undefined) {
@@ -18,9 +18,16 @@ async function createSprint(nameSprint, stateSprint, idProject) {
   return true;
 };
 
-async function getSprints() {
+async function addTaskToSprint(id_task, id_sprint) {
   const conn = await pool.getConnection();
-  const rows = await conn.query(`Select * FROM sprints;`);
+
+  await conn.query(`UPDATE tasks SET id_sprint = '${id_sprint}' WHERE id_task = '${id_task}';`);
+  return true;
+};
+
+async function getTasks() {
+  const conn = await pool.getConnection();
+  const rows = await conn.query(`Select * FROM tasks;`);
   if (rows[0] === undefined) {
     return false;
   }
@@ -28,6 +35,7 @@ async function getSprints() {
 };
 
 module.exports = {
-  createSprint: createSprint,
-  getSprints: getSprints,
+  createTask: createTask,
+  addTaskToSprint: addTaskToSprint,
+  getTasks: getTasks,
 };

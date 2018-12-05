@@ -5,6 +5,7 @@ const app = express();
 const userDAO = require('./userDAO');
 const projectDAO = require('./projectDAO');
 const sprintDAO = require('./sprintDAO');
+const taskDAO = require('./taskDAO');
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
 const renderer = require('./renderer');
@@ -84,6 +85,44 @@ app.post('/sprint/add', function(req, res) {
   sprintDAO.createSprint(sprintName, sprintState, projectID).then((isCreated)=>{
     if (isCreated) {
       res.send('<p>Sprint Created</p>');
+    } else {
+      res.send('An error has occured');
+    }
+  });
+});
+
+app.get('/sprint/TaskToSprint', function(req, res) {
+  JSDOM.fromFile('src/public/form.html').then(async(dom) => {
+    changeHeader(dom, 'Ajouter une tâche à mon sprint');
+    const form = dom.window.document.querySelector('form');
+    form.action = '/sprint/TaskToSprint/add';
+    form.innerHTML = renderer.renderTaskToSprintForm();
+    const sprintSelect = dom.window.document.getElementById("nameS");
+    const taskSelect = dom.window.document.getElementById("nameT");
+    var sprints = await sprintDAO.getSprints();
+    sprints.forEach(element => {
+        var option = dom.window.document.createElement("option");
+        option.text = element.name_sprint;
+        option.value = element.id_sprint;
+        sprintSelect.add(option);
+    });
+    var tasks = await taskDAO.getTasks();
+    tasks.forEach(element => {
+        var option = dom.window.document.createElement("option");
+        option.text = element.name_task;
+        option.value = element.id_task;
+        taskSelect.add(option);
+    });
+    res.send(dom.serialize());
+  });
+});
+
+app.post('/sprint/TaskToSprint/add', function(req, res) {
+  const sprintName = req.body.sprint;
+  const taskName = req.body.task;
+  taskDAO.addTaskToSprint(taskName, sprintName).then((isCreated)=>{
+    if (isCreated) {
+      res.send('<p>Task Added to Sprint</p>');
     } else {
       res.send('An error has occured');
     }
