@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/acherifi/cdp-2018.svg?branch=master)](https://travis-ci.com/acherifi/cdp-2018)
-[![Smells](https://sonarcloud.io/api/project_badges/measure?project=cdp2018&metric=code_smells)
-[![Test Coverage](https://sonarcloud.io/api/project_badges/measure?project=cdp2018&metric=coverage)
-[![Test Coverage](https://sonarcloud.io/api/project_badges/measure?project=cdp2018&metric=sqale_rating)
+![Smells](https://sonarcloud.io/api/project_badges/measure?project=cdp2018&metric=code_smells)
+![Test Coverage](https://sonarcloud.io/api/project_badges/measure?project=cdp2018&metric=coverage)
+![Test Coverage](https://sonarcloud.io/api/project_badges/measure?project=cdp2018&metric=sqale_rating)
 
 Sprint 1 : Intégrateur -> ALI
 Sprint 2 : Intégrateur -> NICOLAS
