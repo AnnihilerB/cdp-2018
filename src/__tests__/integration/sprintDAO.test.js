@@ -51,15 +51,3 @@ test('No sprints founded', async () => {
   const connected = await sprintDAO.getSprints();
   expect(connected).toBe(false);
 });
-
-test('Should not create a sprint', async () => {
-  const sname = 'sprint1';
-  const sstate = 'NC';
-  const idProject = null;
-  const conn = await testpool.getConnection();
-  await conn.query(`DELETE FROM projects`);
-  conn.end();
-  const connected = await sprintDAO.createSprint(sname, sstate, idProject);
-
-  expect(connected).toBe(false);
-});
