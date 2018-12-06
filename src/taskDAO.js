@@ -14,9 +14,11 @@ async function createTask(nameTask, stateTask, id, idIssue, idSprint) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT * FROM users WHERE id="${id}"`);
   if (rows[0] === undefined) {
+    conn.end();
     return false;
   }
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameTask}', '${stateTask}', '${id}', '${idIssue}', '${idSprint}');`);
+  conn.end();
   return true;
 };
 
@@ -27,8 +29,8 @@ async function createTask(nameTask, stateTask, id, idIssue, idSprint) {
  */
 async function addTaskToSprint(idTask, idSprint) {
   const conn = await pool.getConnection();
-
   await conn.query(`UPDATE tasks SET id_sprint = '${idSprint}' WHERE id_task = '${idTask}';`);
+  conn.end();
   return true;
 };
 
@@ -39,6 +41,7 @@ async function addTaskToSprint(idTask, idSprint) {
 async function getTasks() {
   const conn = await pool.getConnection();
   const rows = await conn.query(`Select * FROM tasks;`);
+  conn.end();
   if (rows[0] === undefined) {
     return false;
   }

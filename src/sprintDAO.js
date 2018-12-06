@@ -12,6 +12,7 @@ async function createSprint(nameSprint, stateSprint, idProject) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT * FROM projects WHERE id_project="${idProject}"`);
   if (rows[0] === undefined) {
+    conn.end();
     return false;
   }
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameSprint}', '${stateSprint}', '${idProject}');`);
@@ -26,6 +27,7 @@ async function createSprint(nameSprint, stateSprint, idProject) {
 async function getSprints() {
   const conn = await pool.getConnection();
   const rows = await conn.query(`Select * FROM sprints;`);
+  conn.end();
   if (rows[0] === undefined) {
     return false;
   }
