@@ -21,6 +21,21 @@ beforeAll(async () => {
   conn.end();
 });
 
+test('Should return the list of all users', async () => {
+  const users = await userDAO.getUsers();
+  expect(users.length).toBe(1);
+  expect(users[0].username).toBe('admin');
+  expect(users[0].password).toBe('pass');
+});
+
+test('Should make user a simple object with 2 fields', async () => {
+  let users = await userDAO.getUsers();
+  users = userDAO.toSimplerObject(users);
+  expect(users.length).toBe(1);
+  expect(users[0].name).toBe('admin');
+  expect(users[0].id).toBe(1);
+});
+
 test('Should log the user ', async () => {
   const connected = await userDAO.logUser('admin', 'pass');
   expect(connected).toBe(true);
@@ -55,4 +70,3 @@ test('User should not exist', async () => {
   const res = await userDAO.userAlreadyExists('Michael');
   expect(res).toBe(false);
 });
-
