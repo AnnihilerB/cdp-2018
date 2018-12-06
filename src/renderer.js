@@ -16,17 +16,20 @@ function renderIssueForm(projects) {
 }
 
 /**
- * Render the fields to add int the DOM for creating
+ * Render the fields to add into the DOM for creating
  * the task form
+ * @param {JSON[]} sprints Array of sprints to render
+ * @param {JSON[]} issues Array of issues to render
+ * @param {JSON[]} users Array of users to render
  * @return {string} String representation of the form.
  */
-function renderTaskForm() {
+function renderTaskForm(sprints, issues, users) {
   let tasksForm = '';
   tasksForm = tasksForm.concat(createFormGroup('Task name', 'name', 'task'));
   tasksForm = tasksForm.concat(createFormGroup('State Task', 'state', 'task_state'));
-  tasksForm = tasksForm.concat(createFormGroup('Id', 'id', 'id'));
-  tasksForm = tasksForm.concat(createFormGroup('Id issue', 'issue', 'id_issue'));
-  tasksForm = tasksForm.concat(createFormGroup('Id sprint', 'sprint', 'id_sprint'));
+  tasksForm = tasksForm.concat(createSelect('User', 'userid', users));
+  tasksForm = tasksForm.concat(createSelect('Sprint', 'sprintid', sprints));
+  tasksForm = tasksForm.concat(createSelect('Issue', 'issueid', issues));
 
   tasksForm = tasksForm.concat(createFormButton('sendTask', 'Créer'));
   return tasksForm;
