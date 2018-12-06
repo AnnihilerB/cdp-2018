@@ -1,4 +1,4 @@
-const pool = require('./databaseDAO').pool;
+let pool = require('./databaseDAO').pool;
 const table = 'sprints';
 const columns = 'name_sprint, state_sprint, id_project';
 
@@ -34,7 +34,17 @@ async function getSprints() {
   return rows;
 }
 
+/**
+ * Overrides the default pool.
+ * Used for testing puposes
+ * @param {Pool} newpool the new pool to be used
+ */
+function setPool(newpool) {
+  pool = newpool;
+}
+
 module.exports = {
   createSprint: createSprint,
   getSprints: getSprints,
+  setPool: setPool,
 };
