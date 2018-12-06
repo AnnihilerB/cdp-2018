@@ -47,8 +47,10 @@ ALTER TABLE sprints ADD CONSTRAINT FK_sprints_id_project FOREIGN KEY (id_project
 
 INSERT INTO users (username, password)
 VALUES ('admin', 'pass');
-INSERT INTO issues (id_project)
-VALUES ('1');
+INSERT INTO projects (name)
+VALUES ('projet');
+INSERT INTO issues (description_issue, id_project)
+VALUES ('issue 1', '1');
 INSERT INTO tasks (name_task, id, id_issue, id_sprint)
 VALUES ('task1', '1', '1', '1');
 INSERT INTO tasks (name_task, id, id_issue, id_sprint)

@@ -10,11 +10,6 @@ const columns = 'name_sprint, state_sprint, id_project';
  */
 async function createSprint(nameSprint, stateSprint, idProject) {
   const conn = await pool.getConnection();
-  const rows = await conn.query(`SELECT * FROM projects WHERE id_project="${idProject}"`);
-  if (rows[0] === undefined) {
-    conn.end();
-    return false;
-  }
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameSprint}', '${stateSprint}', '${idProject}');`);
   conn.end();
   return true;
@@ -42,9 +37,26 @@ async function getSprints() {
 function setPool(newpool) {
   pool = newpool;
 }
+/**
+ * Parse the rawdata from the database and returns a simpler JSON array.
+ * @param {JSON[]} sprints raw array of sprints coming fromt the DB.
+ * @return {JSON[]} a simpler array with only two fields id and name.
+ */
+function toSimplerObject(sprints) {
+  const parsedProjects = [];
+  for (let i = 0; i < sprints.length; i++) {
+    const project = {
+      id: sprints[i].id_sprint,
+      name: sprints[i].name_sprint,
+    };
+    parsedProjects.push(project);
+  }
+  return parsedProjects;
+}
 
 module.exports = {
   createSprint: createSprint,
   getSprints: getSprints,
   setPool: setPool,
+  toSimplerObject: toSimplerObject,
 };

@@ -24,7 +24,25 @@ async function getProjects() {
   return rows;
 }
 
+/**
+ * Parse the rawdata from the database and returns a simpler JSON array.
+ * @param {JSON[]} projects raw array of projects coming fromt the DB.
+ * @return {JSON[]} a simpler array with only two fields id and name.
+ */
+function toSimplerObject(projects) {
+  const parsedProjects = [];
+  for (let i = 0; i < projects.length; i++) {
+    const project = {
+      id: projects[i].id_project,
+      name: projects[i].name,
+    };
+    parsedProjects.push(project);
+  }
+  return parsedProjects;
+}
+
 module.exports = {
   createProject: createProject,
   getProjects: getProjects,
+  toSimplerObject: toSimplerObject,
 };

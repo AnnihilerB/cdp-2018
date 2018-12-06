@@ -47,11 +47,42 @@ async function userAlreadyExists(accountName) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT username FROM users where username = '${accountName}'`);
   conn.end();
-  console.log(rows[0] === undefined);
   if (rows[0] === undefined) {
     return false;
   }
   return true;
+}
+
+/**
+ * Verify that the account name doesn't exists in the Data Base
+ * @param {string} accountName name of the account te user wants
+ * @return {boolean} true if the user exists false otherwise.
+ */
+async function getUsers() {
+  const conn = await pool.getConnection();
+  const rows = await conn.query(`SELECT * FROM users`);
+  conn.end();
+  if (rows[0] === undefined) {
+    return false;
+  }
+  return rows;
+}
+
+/**
+ * Parse the rawdata from the database and returns a simpler JSON array.
+ * @param {JSON[]} users raw array of users coming fromt the DB.
+ * @return {JSON[]} a simpler array with only two fields id and name.
+ */
+function toSimplerObject(users) {
+  const parsedProjects = [];
+  for (let i = 0; i < users.length; i++) {
+    const project = {
+      id: users[i].id,
+      name: users[i].username,
+    };
+    parsedProjects.push(project);
+  }
+  return parsedProjects;
 }
 
 /**
@@ -69,4 +100,6 @@ module.exports = {
   logUser: logUser,
   verifyCredentials: verifyCredentials,
   setPool: setPool,
+  getUsers: getUsers,
+  toSimplerObject: toSimplerObject,
 };

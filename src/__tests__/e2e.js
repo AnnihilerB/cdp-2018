@@ -78,8 +78,8 @@ describe('Sprint creation successful', () => {
     await waitForPage('a#sprints');
     await page.click('input#name');
     await page.keyboard.type('Mon sprint');
-    await page.click('input#projectId');
-    await page.keyboard.type('1');
+    await page.click('input#complete');
+    await page.select('#projectid', '1');
     await waitForPage('button#sendSprint');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/sprint/add');
@@ -118,12 +118,15 @@ describe('Issue creation successful', () => {
 
   it('should create an issue', async () => {
     await waitForPage('a#issues');
-    await page.click('input#id');
-    await page.keyboard.type('1');
+    await page.click('input#description');
+    await page.keyboard.type('desc');
     await page.click('input#difficulty');
     await page.keyboard.type('1');
+    await page.click('input#state');
+    await page.keyboard.type('todo');
     await page.click('input#priority');
     await page.keyboard.type('1');
+    await page.select('#projectid', '1');
     await waitForPage('button#sendIssue');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/issues/add');
@@ -141,32 +144,15 @@ describe('Task creation successful', () => {
     await waitForPage('a#tasks');
     await page.click('input#name');
     await page.keyboard.type('task1');
-    await page.click('input#id');
-    await page.keyboard.type('1');
-    await page.click('input#issue');
-    await page.keyboard.type('1');
-    await page.click('input#sprint');
-    await page.keyboard.type('1');
+    await page.click('input#state');
+    await page.keyboard.type('TODO');
+    await page.select('#userid', '1');
+    await page.select('#sprintid', '1');
+    await page.select('#issueid', '1');
     await waitForPage('button#sendTask');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/tasks/add');
     browser.close();
-  });
-});
-
-describe('Task adding to a sprint successful', () => {
-  beforeAll(async () => {
-    await prep();
-    await page.goto('http://localhost:3000/home');
-  });
-
-  it('should add the task to the sprint correctly', async () => {
-    await waitForPage('a#addTaskToSprint');
-    await page.select('#nameS', '1');
-    await page.select('#nameT', '1');
-    await waitForPage('button#sendTaskToSprint');
-    const url = page.url();
-    expect(url).toBe('http://localhost:3000/sprint/TaskToSprint/add');
   });
 });
 
