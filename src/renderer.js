@@ -1,15 +1,16 @@
 /**
  * Render the fields to add int the DOM for creating
  * the issue form
+ * @param {JSON[]} projects list of projects to be rendered.
  * @return {string} String representation of the form.
  */
-function renderIssueForm() {
+function renderIssueForm(projects) {
   let issuesForm = '';
   issuesForm = issuesForm.concat(createFormGroup('Issue description', 'description', 'issue_description'));
   issuesForm = issuesForm.concat(createFormGroup('State Issue', 'state', 'issue_state'));
   issuesForm = issuesForm.concat(createFormGroup('Issue difficulty', 'difficulty', 'issue_difficulty'));
   issuesForm = issuesForm.concat(createFormGroup('Issue priority', 'priority', 'issue_priority'));
-  issuesForm = issuesForm.concat(createFormGroup('Id project', 'id', 'id_project'));
+  issuesForm = issuesForm.concat(createSelect('Project', 'projectid', projects));
   issuesForm = issuesForm.concat(createFormButton('sendIssue', 'Créer'));
   return issuesForm;
 }

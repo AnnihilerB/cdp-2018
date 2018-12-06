@@ -38,12 +38,9 @@ app.post('/user/create', async function(req, res) {
   assert.strictEqual(psw1, psw2);
 
   const alreadyExists = await userDAO.userAlreadyExists(username);
-  console.log('already exists', alreadyExists);
   if (!alreadyExists) {
     await userDAO.createUser(username, psw1, mail);
-    console.log('create user done');
     const connected = await userDAO.logUser(username, psw1);
-    console.log('connected', connected);
     if (connected) {
       res.redirect('/home');
     }
@@ -97,7 +94,6 @@ app.get('/sprint', async function(req, res) {
 });
 
 app.post('/sprint/add', async function(req, res) {
-  console.log(req.body);
   const sprintName = req.body.sprint;
   const sprintState = req.body.sprint_state;
   const projectID = req.body.projectid;
@@ -113,7 +109,8 @@ app.get('/issues', async function(req, res) {
   const dom = await JSDOM.fromFile('src/public/form.html');
   const form = dom.window.document.querySelector('form');
   form.action = '/issues/add';
-  form.innerHTML = renderer.renderIssueForm();
+  const projects = await projectDAO.getProjects();
+  form.innerHTML = renderer.renderIssueForm(projectDAO.toSimplerObject(projects));
   dom.window.document.querySelector('.navbar-brand').innerHTML = 'Créer une issue';
   res.send(dom.serialize());
 });
@@ -123,7 +120,7 @@ app.post('/issues/add', async function(req, res) {
   const issueState = req.body.issue_state;
   const issueDif = req.body.issue_difficulty;
   const issuePrio = req.body.issue_priority;
-  const idProject = req.body.id_project;
+  const idProject = req.body.projectid;
   const isCreated = await issueDAO.createIssue(issueDesc, issueState, issueDif, issuePrio, idProject);
   if (isCreated) {
     res.send('<p>Issue Created</p>');

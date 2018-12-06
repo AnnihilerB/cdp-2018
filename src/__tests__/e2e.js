@@ -117,12 +117,15 @@ describe('Issue creation successful', () => {
 
   it('should create an issue', async () => {
     await waitForPage('a#issues');
-    await page.click('input#id');
-    await page.keyboard.type('1');
+    await page.click('input#description');
+    await page.keyboard.type('desc');
     await page.click('input#difficulty');
     await page.keyboard.type('1');
+    await page.click('input#state');
+    await page.keyboard.type('todo');
     await page.click('input#priority');
     await page.keyboard.type('1');
+    await page.select('#projectid', '1');
     await waitForPage('button#sendIssue');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/issues/add');

@@ -47,7 +47,6 @@ async function userAlreadyExists(accountName) {
   const conn = await pool.getConnection();
   const rows = await conn.query(`SELECT username FROM users where username = '${accountName}'`);
   conn.end();
-  console.log(rows[0] === undefined);
   if (rows[0] === undefined) {
     return false;
   }

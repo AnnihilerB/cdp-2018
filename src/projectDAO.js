@@ -30,7 +30,6 @@ async function getProjects() {
  * @return {JSON[]} a simpler array with only two fields id and name.
  */
 function toSimplerObject(projects) {
-  console.log(projects);
   const parsedProjects = [];
   for (let i = 0; i < projects.length; i++) {
     const project = {
