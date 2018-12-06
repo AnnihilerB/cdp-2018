@@ -1,4 +1,4 @@
-const pool = require('./databaseDAO').pool;
+let pool = require('./databaseDAO').pool;
 const table = 'sprints';
 const columns = 'name_sprint, state_sprint, id_project';
 
@@ -30,6 +30,14 @@ async function getSprints() {
 }
 
 /**
+ * Overrides the default pool.
+ * Used for testing puposes
+ * @param {Pool} newpool the new pool to be used
+ */
+function setPool(newpool) {
+  pool = newpool;
+}
+/**
  * Parse the rawdata from the database and returns a simpler JSON array.
  * @param {JSON[]} sprints raw array of sprints coming fromt the DB.
  * @return {JSON[]} a simpler array with only two fields id and name.
@@ -49,5 +57,6 @@ function toSimplerObject(sprints) {
 module.exports = {
   createSprint: createSprint,
   getSprints: getSprints,
+  setPool: setPool,
   toSimplerObject: toSimplerObject,
 };

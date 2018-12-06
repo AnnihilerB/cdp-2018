@@ -20,7 +20,7 @@ async function createTask(nameTask, stateTask, id, idIssue, idSprint) {
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameTask}', '${stateTask}', '${id}', '${idIssue}', '${idSprint}');`);
   conn.end();
   return true;
-};
+}
 
 /**
  * Add a task to a sprint
