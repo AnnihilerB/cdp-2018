@@ -130,6 +130,29 @@ app.post('/issues/add', async function(req, res) {
   }
 });
 
+app.get('/tasks', async function(req, res) {
+  const dom = await JSDOM.fromFile('src/public/form.html');
+  const form = dom.window.document.querySelector('form');
+  form.action = '/tasks/add';
+  form.innerHTML = renderer.renderTaskForm();
+  dom.window.document.querySelector('.navbar-brand').innerHTML = 'Créer une tâche';
+  res.send(dom.serialize());
+});
+
+app.post('/tasks/add', async function(req, res) {
+  const taskName = req.body.task;
+  const taskState = req.body.task_state;
+  const id = req.body.id;
+  const idIssue = req.body.id_issue;
+  const idSprint = req.body.id_sprint;
+  const isCreated = await taskDAO.createTask(taskName, taskState, id, idIssue, idSprint);
+  if (isCreated) {
+    res.send('<p>Task Created</p>');
+  } else {
+    res.send('An error has occured');
+  }
+});
+
 app.get('/sprint/TaskToSprint', async function(req, res) {
   const dom = await JSDOM.fromFile('src/public/form.html');
   const form = dom.window.document.querySelector('form');

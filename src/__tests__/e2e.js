@@ -28,6 +28,8 @@ describe('Login user', () => {
     await prep();
     const conn = await pool.getConnection();
     await conn.query('SET FOREIGN_KEY_CHECKS = 0; ');
+    await conn.query(`TRUNCATE TABLE tasks;`);
+    await conn.query(`TRUNCATE TABLE issues;`);
     await conn.query(`TRUNCATE TABLE sprints;`);
     await conn.query(`TRUNCATE TABLE projects;`);
     await conn.query(`DELETE FROM users WHERE username <>'admin';`);
@@ -85,22 +87,6 @@ describe('Sprint creation successful', () => {
   });
 });
 
-describe('Task adding to a sprint successful', () => {
-  beforeAll(async () => {
-    await prep();
-    await page.goto('http://localhost:3000/home');
-  });
-
-  it('should log the user correctly', async () => {
-    await waitForPage('a#addTaskToSprint');
-    await page.select('#nameS', '1');
-    await page.select('#nameT', '1');
-    await waitForPage('button#sendTaskToSprint');
-    const url = page.url();
-    expect(url).toBe('http://localhost:3000/sprint/TaskToSprint/add');
-  });
-});
-
 describe('Account creation successful', () => {
   beforeAll(async () => {
     await prep();
@@ -121,6 +107,66 @@ describe('Account creation successful', () => {
     const url = page.url();
     expect(url).toBe('http://localhost:3000/home');
     browser.close();
+  });
+});
+
+describe('Issue creation successful', () => {
+  beforeAll(async () => {
+    await prep();
+    await page.goto('http://localhost:3000/home');
+  });
+
+  it('should create an issue', async () => {
+    await waitForPage('a#issues');
+    await page.click('input#id');
+    await page.keyboard.type('1');
+    await page.click('input#difficulty');
+    await page.keyboard.type('1');
+    await page.click('input#priority');
+    await page.keyboard.type('1');
+    await waitForPage('button#sendIssue');
+    const url = page.url();
+    expect(url).toBe('http://localhost:3000/issues/add');
+    browser.close();
+  });
+});
+
+describe('Task creation successful', () => {
+  beforeAll(async () => {
+    await prep();
+    await page.goto('http://localhost:3000/home');
+  });
+
+  it('should create a task', async () => {
+    await waitForPage('a#tasks');
+    await page.click('input#name');
+    await page.keyboard.type('task1');
+    await page.click('input#id');
+    await page.keyboard.type('1');
+    await page.click('input#issue');
+    await page.keyboard.type('1');
+    await page.click('input#sprint');
+    await page.keyboard.type('1');
+    await waitForPage('button#sendTask');
+    const url = page.url();
+    expect(url).toBe('http://localhost:3000/tasks/add');
+    browser.close();
+  });
+});
+
+describe('Task adding to a sprint successful', () => {
+  beforeAll(async () => {
+    await prep();
+    await page.goto('http://localhost:3000/home');
+  });
+
+  it('should add the task to the sprint correctly', async () => {
+    await waitForPage('a#addTaskToSprint');
+    await page.select('#nameS', '1');
+    await page.select('#nameT', '1');
+    await waitForPage('button#sendTaskToSprint');
+    const url = page.url();
+    expect(url).toBe('http://localhost:3000/sprint/TaskToSprint/add');
   });
 });
 

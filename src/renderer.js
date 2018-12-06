@@ -16,6 +16,23 @@ function renderIssueForm() {
 
 /**
  * Render the fields to add int the DOM for creating
+ * the task form
+ * @return {string} String representation of the form.
+ */
+function renderTaskForm() {
+  let tasksForm = '';
+  tasksForm = tasksForm.concat(createFormGroup('Task name', 'name', 'task'));
+  tasksForm = tasksForm.concat(createFormGroup('State Task', 'state', 'task_state'));
+  tasksForm = tasksForm.concat(createFormGroup('Id', 'id', 'id'));
+  tasksForm = tasksForm.concat(createFormGroup('Id issue', 'issue', 'id_issue'));
+  tasksForm = tasksForm.concat(createFormGroup('Id sprint', 'sprint', 'id_sprint'));
+
+  tasksForm = tasksForm.concat(createFormButton('sendTask', 'Créer'));
+  return tasksForm;
+}
+
+/**
+ * Render the fields to add int the DOM for creating
  * the project form
  * @return {string} String representation of the form.
  */
@@ -48,6 +65,7 @@ function renderSprintForm() {
   return sprintName+input+sprintState+inputCompleted+inputNotCompleted
         +sprintProjectID+inputProjectID+button;
 }
+
 
 /**
  * Render the fields to add int the DOM for creating
@@ -132,6 +150,7 @@ function createButton(action, buttonText) {
 
 module.exports = {
   renderIssueForm: renderIssueForm,
+  renderTaskForm: renderTaskForm,
   renderProjectForm: renderProjectForm,
   renderSprintForm: renderSprintForm,
   renderTaskToSprintForm: renderTaskToSprintForm,

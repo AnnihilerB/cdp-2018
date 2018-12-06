@@ -4,17 +4,19 @@ const columns = 'name_task, state_task, id, id_issue, id_sprint';
 
 /**
  * Register a project into the database.
- * @param {string} nameSprint Names of the sprint.
- * @param {string} stateSprint Sprint state.
- * @param {int} idProject sprint's project id.
+ * @param {string} nameTask Names of the task.
+ * @param {string} stateTask task state.
+ * @param {int} id task's project id.
+ * @param {int} idIssue task's issue id.
+ * @param {int} idSprint task's sprint id.
  */
-async function createTask(nameSprint, stateSprint, idProject) {
+async function createTask(nameTask, stateTask, id, idIssue, idSprint) {
   const conn = await pool.getConnection();
-  const rows = await conn.query(`SELECT * FROM projects WHERE id_project="${idProject}"`);
+  const rows = await conn.query(`SELECT * FROM users WHERE id="${id}"`);
   if (rows[0] === undefined) {
     return false;
   }
-  await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameSprint}', '${stateSprint}', '${idProject}');`);
+  await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameTask}', '${stateTask}', '${id}', '${idIssue}', '${idSprint}');`);
   return true;
 };
 
@@ -31,7 +33,8 @@ async function addTaskToSprint(idTask, idSprint) {
 };
 
 /**
- * Get all tasks
+ * Retrieve all tasks from database
+ * @return {Array} Task's list
  */
 async function getTasks() {
   const conn = await pool.getConnection();
