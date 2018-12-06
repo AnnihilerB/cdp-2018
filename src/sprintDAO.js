@@ -32,7 +32,7 @@ async function getSprints() {
     return false;
   }
   return rows;
-};
+}
 
 module.exports = {
   createSprint: createSprint,

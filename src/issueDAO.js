@@ -20,7 +20,7 @@ async function createIssue(descIssue, stateIssue, difficultyIssue, priorityIssue
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${descIssue}', '${stateIssue}', '${difficultyIssue}', '${priorityIssue}',  '${idProject}');`);
   conn.end();
   return true;
-};
+}
 
 module.exports = {
   createIssue: createIssue,
