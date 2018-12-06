@@ -41,7 +41,9 @@ test('Should create a new sprint', async () => {
 
 test('Should get the sprints', async () => {
   const connected = await sprintDAO.getSprints();
+  const obj = await sprintDAO.toSimplerObject(connected);
   expect(connected.length).toBe(1);
+  expect(obj.length).toBe(1);
 });
 
 test('No sprints founded', async () => {
