@@ -90,15 +90,17 @@ app.get('/sprint', async function(req, res) {
   const dom = await JSDOM.fromFile('src/public/form.html');
   const form = dom.window.document.querySelector('form');
   form.action = '/sprint/add';
-  form.innerHTML = renderer.renderSprintForm();
+  const projects = await projectDAO.getProjects();
+  form.innerHTML = renderer.renderSprintForm(projectDAO.toSimplerObject(projects));
   dom.window.document.querySelector('.navbar-brand').innerHTML = 'Créer un sprint';
   res.send(dom.serialize());
 });
 
 app.post('/sprint/add', async function(req, res) {
+  console.log(req.body);
   const sprintName = req.body.sprint;
   const sprintState = req.body.sprint_state;
-  const projectID = req.body.sprint_projectid;
+  const projectID = req.body.projectid;
   const isCreated = await sprintDAO.createSprint(sprintName, sprintState, projectID);
   if (isCreated) {
     res.send('<p>Sprint Created</p>');

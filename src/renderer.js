@@ -50,20 +50,19 @@ function renderProjectForm() {
 /**
  * Render the fields to add int the DOM for creating
  * the sprint form
+ * @param {JSON[]} projects list of projects to be displayed.
  * @return {string} String representation of the form.
  */
-function renderSprintForm() {
-  const sprintName = 'Sprint name: <br>';
-  const input = '<input id="name" type="text" name="sprint"><br>';
-  const sprintState = 'Sprint state: <br>';
-  const inputCompleted = '<input id="complete" type="radio" name="sprint_state" value="Completed" checked> Completed<br>';
-  const inputNotCompleted = '<input id="notComplete" type="radio" name="sprint_state" value="NotCompleted"> Not Completed<br>';
-  const sprintProjectID = 'Project ID: <br>';
-  const inputProjectID = '<input id="projectId" type="text" name="sprint_projectid"><br>';
-  const button = '<button id="sendSprint" type="submit">Valider</button>';
+function renderSprintForm(projects) {
+  let sprintForm = '';
 
-  return sprintName+input+sprintState+inputCompleted+inputNotCompleted
-        +sprintProjectID+inputProjectID+button;
+  sprintForm = sprintForm.concat(createFormGroup('Sprint name', 'name', 'sprint'));
+  sprintForm = sprintForm.concat(createFormRadio('Sprint completed', 'complete', 'sprint_state', 'Completed'));
+  sprintForm = sprintForm.concat(createFormRadio('Sprint not completed', 'notComplete', 'sprint_state', 'Not Completed'));
+  sprintForm = sprintForm.concat(createSelect('Project', 'projectid', projects));
+  sprintForm = sprintForm.concat(createFormButton('sendSprint', 'Créer'));
+
+  return sprintForm;
 }
 
 
@@ -146,6 +145,24 @@ function createButton(action, buttonText) {
   return `<a href="${action}">
   <button class="btn btn-secondary">${buttonText}</button>
 </a>`;
+}
+/**
+ * Create a select dropdown menu.
+ * @param {string} labelName Name of the dropdown menu
+ * @param {string} id the id of the select for gathering the selected value.
+ * @param {JSON[]} options An array of options to display. Each item is a
+ * JSON objects with two fields id and name.
+ * @return {string} HTML code to be displayed
+ */
+function createSelect(labelName, id, options) {
+  const header = `<label>${labelName}</label>
+  <select class="form-control" name="${id}" id="${id}">`;
+  const footer = '</select>';
+  let displayOptions = '';
+  for (let i = 0; i < options.length; i++) {
+    displayOptions = displayOptions.concat(`<option value= ${options[i].id}>${options[i].name}</option>`);
+  }
+  return header+displayOptions+footer;
 }
 
 module.exports = {

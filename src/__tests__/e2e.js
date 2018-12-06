@@ -78,8 +78,7 @@ describe('Sprint creation successful', () => {
     await waitForPage('a#sprints');
     await page.click('input#name');
     await page.keyboard.type('Mon sprint');
-    await page.click('input#projectId');
-    await page.keyboard.type('1');
+    await page.select('#projectid', '1');
     await waitForPage('button#sendSprint');
     const url = page.url();
     expect(url).toBe('http://localhost:3000/sprint/add');
