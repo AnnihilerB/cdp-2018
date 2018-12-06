@@ -32,7 +32,7 @@ async function addTaskToSprint(idTask, idSprint) {
   await conn.query(`UPDATE tasks SET id_sprint = '${idSprint}' WHERE id_task = '${idTask}';`);
   conn.end();
   return true;
-};
+}
 
 /**
  * Retrieve all tasks from database
@@ -46,7 +46,7 @@ async function getTasks() {
     return false;
   }
   return rows;
-};
+}
 
 module.exports = {
   createTask: createTask,
