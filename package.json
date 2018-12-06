@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon src/app.js localhost 3000",
     "teste2e": "date && jest --detectOpenHandles --forceExit -- e2e.js ",
-    "test": "date && jest --detectOpenHandles --forceExit --coverage -- src/__tests__/integration/*.test.js",
+    "test": "date && jest --runInBand --detectOpenHandles --forceExit --coverage -- src/__tests__/integration/*.test.js",
     "lint": "eslint \"**/*.js\" --fix --max-warnings=0",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner"
   },

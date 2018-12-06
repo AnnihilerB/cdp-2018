@@ -1,4 +1,4 @@
-const pool = require('./databaseDAO').pool;
+let pool = require('./databaseDAO').pool;
 const table = 'tasks';
 const columns = 'name_task, state_task, id, id_issue, id_sprint';
 
@@ -12,24 +12,7 @@ const columns = 'name_task, state_task, id, id_issue, id_sprint';
  */
 async function createTask(nameTask, stateTask, id, idIssue, idSprint) {
   const conn = await pool.getConnection();
-  const rows = await conn.query(`SELECT * FROM users WHERE id="${id}"`);
-  if (rows[0] === undefined) {
-    conn.end();
-    return false;
-  }
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameTask}', '${stateTask}', '${id}', '${idIssue}', '${idSprint}');`);
-  conn.end();
-  return true;
-}
-
-/**
- * Add a task to a sprint
- * @param {string} idTask Names of the sprint.
- * @param {string} idSprint Sprint state.
- */
-async function addTaskToSprint(idTask, idSprint) {
-  const conn = await pool.getConnection();
-  await conn.query(`UPDATE tasks SET id_sprint = '${idSprint}' WHERE id_task = '${idTask}';`);
   conn.end();
   return true;
 }
@@ -48,8 +31,17 @@ async function getTasks() {
   return rows;
 }
 
+/**
+ * Overrides the default pool.
+ * Used for testing puposes
+ * @param {Pool} newpool the new pool to be used
+ */
+function setPool(newpool) {
+  pool = newpool;
+}
+
 module.exports = {
   createTask: createTask,
-  addTaskToSprint: addTaskToSprint,
   getTasks: getTasks,
+  setPool: setPool,
 };

@@ -31,7 +31,6 @@ test('Should create a new sprint', async () => {
   const conn = await testpool.getConnection();
   const rows = await conn.query(`SELECT * FROM sprints`);
   conn.end();
-  // admin and new user
   expect(rows.length).toBe(1);
   expect(rows[0].name_sprint).toBe(sname);
   expect(rows[0].state_sprint).toBe(sstate);

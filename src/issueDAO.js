@@ -1,4 +1,4 @@
-const pool = require('./databaseDAO').pool;
+let pool = require('./databaseDAO').pool;
 const table = 'issues';
 const columns = 'description_issue, state_issue, difficulty_issue, priority_issue, id_project';
 
@@ -48,8 +48,18 @@ function toSimplerObject(issues) {
   return parsedProjects;
 }
 
+/**
+ * Overrides the default pool.
+ * Used for testing puposes
+ * @param {Pool} newpool the new pool to be used
+ */
+function setPool(newpool) {
+  pool = newpool;
+}
+
 module.exports = {
   createIssue: createIssue,
   getIssues: getIssues,
   toSimplerObject: toSimplerObject,
+  setPool: setPool,
 };
