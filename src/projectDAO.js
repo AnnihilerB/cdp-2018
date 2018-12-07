@@ -11,7 +11,7 @@ async function createProject(name, sprintDuration) {
   const conn = await pool.getConnection();
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${name}', NULL, '${sprintDuration}', NULL);`);
   conn.end();
-};
+}
 
 /**
  * Get the list of projects.

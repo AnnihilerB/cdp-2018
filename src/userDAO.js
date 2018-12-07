@@ -22,7 +22,7 @@ async function logUser(name, pass) {
   const rows = await conn.query(`SELECT * FROM users where username='${name}'`);
   conn.end();
   return verifyCredentials(rows, name, pass);
-};
+}
 
 /**
  * Verify that the provided credentials are correct.

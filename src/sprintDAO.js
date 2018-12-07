@@ -13,7 +13,7 @@ async function createSprint(nameSprint, stateSprint, idProject) {
   await conn.query(`INSERT INTO ${table} (${columns}) VALUES ('${nameSprint}', '${stateSprint}', '${idProject}');`);
   conn.end();
   return true;
-};
+}
 
 /**
  * Retrieve all Sprints from database
