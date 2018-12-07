@@ -1,4 +1,4 @@
-const sprintDAO = require('../../IssueDAO');
+const issueDAO = require('../../issueDAO');
 const mariadb = require('mariadb');
 let testpool = null;
 
@@ -11,7 +11,7 @@ beforeAll(async () => {
     password: 'example',
     database: 'cdp',
     connectionLimit: 5});
-  sprintDAO.setPool(testpool);
+  issueDAO.setPool(testpool);
   const conn = await testpool.getConnection();
   await conn.query('DELETE FROM tasks');
   await conn.query('DELETE FROM sprints');
@@ -26,8 +26,8 @@ beforeAll(async () => {
 test('Should create a new issue', async () => {
   const idescription = 'Test issue';
   const istate = 'todo';
-  const idifficulty = '1';
-  const ipriority = '1';
+  const idifficulty = 1;
+  const ipriority = 1;
   const idProject = 1;
   await issueDAO.createIssue(idescription, istate, idifficulty, ipriority, idProject);
   const conn = await testpool.getConnection();
@@ -51,7 +51,7 @@ test('Should get the issues', async () => {
 
 test('No issues founded', async () => {
   const conn = await testpool.getConnection();
-  await conn.query(`DELETE FROM sprints`);
+  await conn.query(`DELETE FROM issues`);
   conn.end();
   const connected = await issueDAO.getIssues();
   expect(connected).toBe(false);
